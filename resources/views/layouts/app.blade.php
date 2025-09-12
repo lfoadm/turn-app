@@ -44,7 +44,7 @@
             @include('layouts.header')
 
             <!-- Página -->
-            <main class="flex-1 p-[6px] mt-16">
+            <main class="flex-1 p-[6px] mt-6">
                 {{ $slot }}
             </main>
         </div>
