@@ -47,21 +47,22 @@
                                     class="bg-indigo-100 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
                             </div>
 
+                            <input type="hidden" name="situacao_vagoes" value="LIMPOS">
                             {{-- SITUAÇÃO --}}
-                            <div>
+                            {{-- <div>
                                 <label for="situacao_vagoes" class="block text-sm font-medium text-gray-700">Situação dos Vagões <strong class="text-red-500">*</strong></label>
                                 <select name="situacao_vagoes" id="situacao_vagoes" class="bg-indigo-100 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
                                     <option value="">Selecione</option>
                                     <option value="LIMPOS" {{ old('situacao_vagoes') == 'LIMPOS' ? 'selected' : '' }}>Limpos</option>
                                     <option value="SUJOS" {{ old('situacao_vagoes') == 'SUJOS' ? 'selected' : '' }}>Sujos</option>
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- VAGÕES --}}
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <div>
-                                <label for="qtd_vagoes_total" class="block text-sm font-medium text-gray-700">Total <strong class="text-red-500">*</strong></label>
+                                <label for="qtd_vagoes_total" class="block text-sm font-medium text-gray-700">Qtde. vagões <strong class="text-red-500">*</strong></label>
                                 <input type="number" name="qtd_vagoes_total" id="qtd_vagoes_total" value="{{ old('qtd_vagoes_total') }}"
                                     class="bg-indigo-100 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
                             </div>

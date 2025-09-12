@@ -8,7 +8,6 @@
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             
-
             {{-- CARD PRINCIPAL DO ENCOSTE --}}
             <div class="bg-white shadow-lg rounded-2xl p-6 mb-3">
                 <div class="flex justify-between items-center mb-4">
@@ -67,16 +66,22 @@
             </div>
 
             {{-- GRÁFICOS --}}
-            <div class="bg-white shadow-lg rounded-2xl p-6">
-                <h3 class="text-xl font-bold mb-4">Eficiência do Encoste</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {{-- Paradas por motivo --}}
-                    <div>
-                        <canvas id="stopsByReasonChart"></canvas>
-                    </div>
-                    {{-- Tempo de operação vs paradas --}}
-                    <div>
-                        <canvas id="operationChart"></canvas>
+            <div class="flex justify-center">
+                <div class="bg-white shadow-lg rounded-2xl p-6 w-full">
+                    <h3 class="text-xl font-bold mb-4">Eficiência do Encoste</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {{-- Paradas por motivo --}}
+                        <div>
+                            <canvas id="stopsByReasonChart"></canvas>
+                        </div>
+                        {{-- Tempo de operação vs paradas --}}
+                        <div>
+                            <canvas id="operationChart"></canvas>
+                        </div>
+                        {{-- Vagões abertos x total carregado --}}
+                        <div>
+                            <canvas id="wagonsChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,8 +90,8 @@
             <div class="bg-white shadow-lg rounded-2xl p-6 mt-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-bold text-gray-800">Paradas do Encoste</h3>
-                    <a href="{{ route('stops.create', $docking->id) }}"
-                       class="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700">
+                    <a href="{{ route('stop.create', $docking->id) }}"
+                    class="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700">
                         + Nova Parada
                     </a>
                 </div>
@@ -108,7 +113,7 @@
                                     <tr class="border-t hover:bg-gray-50">
                                         <td class="px-4 py-2">{{ $stop->hora_inicio_formatted }}</td>
                                         <td class="px-4 py-2">{{ $stop->hora_fim_formatted }}</td>
-                                        <td class="px-4 py-2">{{ $stop->motivo }}</td>
+                                        <td class="px-4 py-2">{{ $stop->reason->title }}</td>
                                         <td class="px-4 py-2 text-center text-xl font-bold text-cyan-700">
                                             {{ $stop->duracao_minutos }}
                                         </td>
@@ -122,14 +127,19 @@
                     <p class="text-gray-500 text-sm">Nenhuma parada registrada para este encoste.</p>
                 @endif
             </div>
-        
-    
-    </div>
+        </div>
     </div>
 
     {{-- Chart.js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Paleta de cores gerada dinamicamente para os motivos
+        const reasonColors = [
+            '#34d399', '#3b82f6', '#facc15', '#f87171', 
+            '#a78bfa', '#2dd4bf', '#ef4444', '#10b981', 
+            '#8b5cf6', '#eab308'
+        ];
+
         // Paradas por motivo
         const stopsByReasonCtx = document.getElementById('stopsByReasonChart').getContext('2d');
         new Chart(stopsByReasonCtx, {
@@ -138,9 +148,7 @@
                 labels: @json($chartLabels),
                 datasets: [{
                     data: @json($chartData),
-                    backgroundColor: [
-                        '#34d399', '#3b82f6', '#facc15', '#f87171', '#a78bfa', '#2dd4bf'
-                    ],
+                    backgroundColor: reasonColors.slice(0, @json(count($chartLabels))),
                     borderWidth: 1
                 }]
             },
@@ -177,6 +185,29 @@
                 }
             }
         });
-    </script>
 
+        // Vagões abertos x carregados
+        const wagonsCtx = document.getElementById('wagonsChart').getContext('2d');
+        new Chart(wagonsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Vagões Abertos', 'Vagões Carregados'],
+                datasets: [{
+                    data: [@json($openWagons), @json($loadedWagons)],
+                    backgroundColor: ['#10b981', '#6366f1'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Status dos Vagões',
+                        font: { size: 16 }
+                    }
+                }
+            }
+        });
+    </script>
 </x-app-layout>
+    

@@ -57,10 +57,23 @@
 
                         <!-- Motivo -->
                         <div>
-                            <label for="motivo" class="block text-sm font-medium text-gray-700">Motivo</label>
-                            <textarea name="motivo" id="motivo" rows="3"
+                            <label for="reason_id" class="block text-sm font-medium text-gray-700">Motivo <strong class="text-red-500">*</strong></label>
+                            <select name="reason_id" id="reason_id" class="bg-indigo-100 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-cyan-500 focus:border-cyan-500">
+                                <option value="">Selecione</option>
+                                @foreach($reasons as $reason)
+                                    <option value="{{ $reason->id }}">
+                                        {{ $reason->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <!-- Observações -->
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-gray-700">Observações</label>
+                            <textarea name="description" id="description" rows="3"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring focus:ring-cyan-200 focus:ring-opacity-50"
-                                placeholder="Descreva o motivo">{{ old('motivo') }}</textarea>
+                                placeholder="observações">{{ old('description') }}</textarea>
                         </div>
 
                         <!-- Botões -->

@@ -102,28 +102,30 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-2 text-center flex justify-center space-x-3 gap-3">
-                                        <a href="{{ route('dockings.edit', $docking) }}" class="text-yellow-600 hover:underline">
-                                            <>
+                                        <a href="{{ route('dockings.edit', $docking) }}">
+                                            🖋️
                                         </a>
                                         
                                         <a href="{{ route('stop.create', $docking->id) }}" class="text-cyan-600 hover:underline">
-                                            +
+                                            🛑
                                         </a>
 
                                         <a href="{{ route('dockings.show', $docking) }}" class="text-cyan-600 hover:underline">
-                                            VER
+                                            🔍
                                         </a>
 
                                         {{-- onclick="window.location='{{ route('dockings.show', $docking) }}'" --}}
 
+                                        @can('access-admin-menu')
                                         <form action="{{ route('dockings.destroy', $docking) }}" method="POST"
                                             onsubmit="return confirm('Tem certeza que deseja excluir este encoste?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:underline">
-                                                -
+                                                🗑️
                                             </button>
                                         </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

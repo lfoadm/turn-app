@@ -14,10 +14,10 @@ class Stop extends Model
 
     protected $fillable = [
         'docking_id',
+        'reason_id',
         'hora_inicio',
         'hora_fim',
         'duracao_minutos',
-        'motivo',
         'user_id',
     ];
 
@@ -36,6 +36,11 @@ class Stop extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reason()
+    {
+        return $this->belongsTo(Reason::class);
     }
 
     public function docking()

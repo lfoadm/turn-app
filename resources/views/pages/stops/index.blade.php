@@ -42,7 +42,7 @@
                                     <td class="px-4 py-2 text-xs">{{ $stop->hora_inicio_formatted }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $stop->hora_fim_formatted }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $stop->duracao_minutos }}</td>
-                                    <td class="px-4 py-2 text-sm">{{ $stop->motivo }}</td>
+                                    <td class="px-4 py-2 text-sm">{{ $stop->reason->title }}</td>
                                     <td class="px-4 py-2 text-sm">{{ $stop->user->firstname }}</td>
                                     <td class="px-4 py-2 text-center flex justify-center space-x-3 gap-3">
                                         <a href="{{ route('stops.edit', $stop) }}" class="text-yellow-600 hover:underline">

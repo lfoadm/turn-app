@@ -289,19 +289,23 @@ class DockingController extends Controller
 
     public function show(Docking $docking)
     {
-        // Agrupando tempo de paradas por motivo
+        // Agrupando tempo de paradas por motivo (usando a relação reason)
         $stopsByReason = $docking->stops
-            ->groupBy('motivo')
+            ->groupBy(fn($stop) => $stop->reason->title ?? 'Sem motivo')
             ->map(fn($stops) => $stops->sum('duracao_minutos'));
 
         // Preparando dados para gráficos
         $chartLabels = $stopsByReason->keys();
         $chartData = $stopsByReason->values();
 
+        // Vagões
+        $openWagons = $docking->qtd_vagoes_abertos;
+        $loadedWagons = $docking->qtd_vagoes_carregados;
+
         // Tempo total das paradas
         $totalStopMinutes = $docking->stops->sum('duracao_minutos');
 
-        // Tempo de operação estimado (ex.: encoste até partida)
+        // Tempo de operação estimado (ex.: encoste até partida, descontando paradas)
         $operationMinutes = $docking->hora_encoste && $docking->hora_partida
             ? $docking->hora_encoste->diffInMinutes($docking->hora_partida) - $totalStopMinutes
             : 0;
@@ -311,9 +315,10 @@ class DockingController extends Controller
             'chartLabels',
             'chartData',
             'totalStopMinutes',
-            'operationMinutes'
+            'operationMinutes',
+            'openWagons',
+            'loadedWagons'
         ));
     }
-
 
 }

@@ -28,6 +28,7 @@
                 <li><a href="{{ route('harvests.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('harvests.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">🗓️</span>Safra</a></li>
                 <li><a href="{{ route('ports.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('ports.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">🏗️</span>Terminal portuário</a></li>
                 <li><a href="{{ route('users.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('users.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">👥</span>Usuários</a></li>
+                <li><a href="{{ route('reasons.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('reasons.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">📋</span>Motivos de parada</a></li>
                 
             </ul>
         </li>

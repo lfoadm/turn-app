@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->string('numero_encoste'); // ex: 03 - 2025/26
             $table->timestamp('hora_encoste');
-            $table->enum('situacao_vagoes', ['LIMPOS', 'SUJOS']);
+            $table->enum('situacao_vagoes', ['LIMPOS', 'SUJOS'])->default('LIMPOS');
 
             $table->integer('qtd_vagoes_total');
             $table->integer('qtd_vagoes_carregados')->nullable();
