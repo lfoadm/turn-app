@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StopRequest;
 use App\Models\Admin\Docking;
 use App\Models\Admin\Reason;
 use App\Models\Admin\Stop;
@@ -25,15 +26,8 @@ class StopController extends Controller
         return view('pages.stops.create', compact('docking', 'reasons'));
     }
 
-    public function store(Request $request)
+    public function store(StopRequest $request)
     {
-        $request->validate([
-            'docking_id'  => 'required|exists:dockings,id',
-            'reason_id'  => 'required|exists:reasons,id',
-            'hora_inicio' => 'required|date',
-            'hora_fim'    => 'required|date|after:hora_inicio',
-        ]);
-
         Stop::create([
             'docking_id'     => $request->docking_id,
             'reason_id'      => $request->reason_id,
