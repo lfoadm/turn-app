@@ -17,7 +17,7 @@ class DockingController extends Controller
     use AuthorizesRequests;
     public function __construct()
     {
-        $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny',  User::class);
     }
 
     public function index(Request $request)
@@ -173,7 +173,6 @@ class DockingController extends Controller
             'os_partida_rumo' => $request->os_partida_rumo,
             'registro_transporte_coruripe' => $request->registro_transporte_coruripe,
             'registro_transporte_terceiros' => $request->registro_transporte_terceiros,
-            'status' => 'waiting',
         ]);
 
         return redirect()->route('dockings.index')->with('success', 'Encoste criado com sucesso!');
@@ -286,6 +285,34 @@ class DockingController extends Controller
     {
         $docking->delete();
         return redirect()->route('dockings.index')->with('success', 'Encoste apagado.');
+    }
+
+    public function show(Docking $docking)
+    {
+        // Agrupando tempo de paradas por motivo
+        $stopsByReason = $docking->stops
+            ->groupBy('motivo')
+            ->map(fn($stops) => $stops->sum('duracao_minutos'));
+
+        // Preparando dados para gráficos
+        $chartLabels = $stopsByReason->keys();
+        $chartData = $stopsByReason->values();
+
+        // Tempo total das paradas
+        $totalStopMinutes = $docking->stops->sum('duracao_minutos');
+
+        // Tempo de operação estimado (ex.: encoste até partida)
+        $operationMinutes = $docking->hora_encoste && $docking->hora_partida
+            ? $docking->hora_encoste->diffInMinutes($docking->hora_partida) - $totalStopMinutes
+            : 0;
+
+        return view('pages.dockings.show', compact(
+            'docking',
+            'chartLabels',
+            'chartData',
+            'totalStopMinutes',
+            'operationMinutes'
+        ));
     }
 
 

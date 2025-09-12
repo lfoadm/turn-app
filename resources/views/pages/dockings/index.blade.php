@@ -80,34 +80,7 @@
                         </thead>
                         <tbody>
                             @forelse($dockings as $docking)
-                                @php
-                                    $background_class = '';
-                                    $text_class = '';
-
-                                    if ($docking->hora_partida) {
-                                        // Se tem hora de partida, fica cinza escuro.
-                                        $background_class = 'bg-gray-200';
-                                        $text_class = 'text-zinc-800';
-                                    } elseif ($docking->hora_fim_carga) {
-                                        // Se tem hora final de carga, mas não tem hora de partida, fica preto.
-                                        $background_class = 'bg-black';
-                                        $text_class = 'text-white';
-                                    } elseif ($docking->hora_inicio_carga) {
-                                        // Se tem hora de inicio de carga, mas não tem hora de final de carga, fica azul claro.
-                                        $background_class = 'bg-blue-200';
-                                        $text_class = 'text-black';
-                                    } elseif ($docking->hora_encoste) {
-                                        // Se tem hora de encoste, mas ainda não tem hora inicio de carga, fica laranja claro.
-                                        $background_class = 'bg-orange-200';
-                                        $text_class = 'text-black';
-                                    } else {
-                                        // Caso padrão, se não houver nenhuma das horas preenchidas.
-                                        $background_class = 'bg-white';
-                                        $text_class = 'text-black';
-                                    }
-                                @endphp
-
-                                <tr class="border-t {{ $background_class }} {{ $text_class }}">
+                                 <tr class="border-t">
                                     <td class="px-4 py-2 text-xs">{{ $docking->numero_encoste }}</td>
                                     <td class="px-4 py-2 text-sm">{{ $docking->port->title }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $docking->hora_encoste_formatted }}</td>
@@ -116,20 +89,33 @@
                                     <td class="px-4 py-2 text-sm">{{ $docking->peso_terceiros_formatted }}</td>
                                     <td class="px-4 py-2 text-sm">{{ $docking->volume_total }}</td>
                                     <td class="px-4 py-2 text-sm">
-                                        @if ($docking->hora_partida) Tracionado
-                                        @elseif ($docking->hora_fim_carga) Aguardando tração
-                                        @elseif ($docking->hora_inicio_carga) Em operação
-                                        @elseif ($docking->hora_encoste) Aguardando início
-                                        @else nao sei
+                                        @if ($docking->status == 'departed')
+                                            <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Tracionado</span>
+                                        @elseif ($docking->status == 'waiting_to_depart')
+                                            <span class="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-500 ring-1 ring-inset ring-gray-400/20">Aguardando tração</span>
+                                        @elseif ($docking->status == 'operating')
+                                            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Em operação</span>
+                                        @elseif ($docking->status == 'waiting_to_start')
+                                            <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Aguardando início</span>
+                                        @else
+                                            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Status desconhecido</span>
                                         @endif
                                     </td>
                                     <td class="px-4 py-2 text-center flex justify-center space-x-3 gap-3">
                                         <a href="{{ route('dockings.edit', $docking) }}" class="text-yellow-600 hover:underline">
                                             <>
                                         </a>
-                                        <button type="submit" class="text-cyan-600 hover:underline">
+                                        
+                                        <a href="{{ route('stop.create', $docking->id) }}" class="text-cyan-600 hover:underline">
                                             +
-                                        </button>
+                                        </a>
+
+                                        <a href="{{ route('dockings.show', $docking) }}" class="text-cyan-600 hover:underline">
+                                            VER
+                                        </a>
+
+                                        {{-- onclick="window.location='{{ route('dockings.show', $docking) }}'" --}}
+
                                         <form action="{{ route('dockings.destroy', $docking) }}" method="POST"
                                             onsubmit="return confirm('Tem certeza que deseja excluir este encoste?')">
                                             @csrf

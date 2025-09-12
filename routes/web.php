@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DockingController;
 use App\Http\Controllers\Admin\HarvestController;
 use App\Http\Controllers\Admin\PortController;
+use App\Http\Controllers\Admin\StopController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('dockings', DockingController::class)->names('dockings');
     Route::resource('users', UserController::class)->names('users');
     Route::get('users-pending', [UserController::class, 'approvationUser'])->name('users.pending');
+    
+    Route::resource('stops', StopController::class)->names('stops');
+    Route::get('/dockings/{docking}/stops/create', [StopController::class, 'create'])->name('stop.create');
 });
 
 // Route::get('/dashboard', function () {

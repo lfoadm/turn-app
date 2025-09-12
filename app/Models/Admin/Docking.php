@@ -34,6 +34,7 @@ class Docking extends Model
         'user_id',
         'port_id',
         'harvest_id',
+        'status',
     ];
 
     protected $dates = [
@@ -168,5 +169,31 @@ class Docking extends Model
         'hora_partida'     => 'datetime',
     ];
 
+    protected static function booted()
+    {
+        static::saving(function ($docking) {
+            $docking->status = $docking->calculateStatus();
+        });
+    }
 
+    public function calculateStatus()
+    {
+        if ($this->hora_partida) {
+            return 'departed';
+        }
+
+        if ($this->hora_fim_carga) {
+            return 'waiting_to_depart';
+        }
+
+        if ($this->hora_inicio_carga) {
+            return 'operating';
+        }
+
+        if ($this->hora_encoste) {
+            return 'waiting_to_start';
+        }
+
+        return 'waiting_to_start';
+    }
 }

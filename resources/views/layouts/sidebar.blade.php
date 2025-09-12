@@ -44,7 +44,7 @@
             </button>
             <ul x-show="open" class="ml-10 mt-1 space-y-1 hidden group-hover:block" x-cloak>
                 <li><a href="{{ route('dockings.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('dockings.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">🚉</span>Encoste ferro</a></li>
-                <li><a href="{{-- route('ports.index') --}}" class="block px-2 py-1 rounded hover:bg-gray-100 {{-- request()->routeIs('ports.index') ? 'bg-gray-200 font-bold' : '' --}}"><span class="text-lg mr-3">🛑</span>Paradas</a></li>
+                <li><a href="{{ route('stops.index') }}" class="block px-2 py-1 rounded hover:bg-gray-100 {{ request()->routeIs('stops.index') ? 'bg-gray-200 font-bold' : '' }}"><span class="text-lg mr-3">🛑</span>Paradas</a></li>
                 
             </ul>
         </li>

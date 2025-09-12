@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             HarvestSeeder::class,
             PortSeeder::class,
-            DockingSeeder::class,
+            // DockingSeeder::class,
         ]);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('hora_fim');
             $table->integer('duracao_minutos')->default(0); // calculado
             $table->string('motivo')->nullable();
+            $table->foreignId('reason_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

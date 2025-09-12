@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('registro_transporte_coruripe')->nullable();
             $table->string('registro_transporte_terceiros')->nullable();
 
-            $table->enum('status', ['waiting', 'progress', 'finished'])->default('waiting');
+            $table->enum('status', ['departed', 'operating', 'waiting_to_depart', 'waiting_to_start'])->default('waiting_to_start');
             
             $table->timestamps();
         });
