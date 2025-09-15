@@ -16,8 +16,6 @@
 
         <!-- Cadastros -->
         @can('access-admin-menu')
-            
-        
         <li x-data="{ open: false }">
             <button @click="open = !open"
                 class="w-full flex items-center justify-between px-4 py-2 rounded hover:bg-gray-200">

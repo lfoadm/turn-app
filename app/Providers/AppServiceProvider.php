@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
 
         Gate::define('access-admin-menu', function (User $user) {
-            return $user->role !== 'admin';
+            return $user->role === 'admin';
         });
 
         Gate::define('access-new-menu', function (User $user) {

@@ -7,6 +7,8 @@ use Database\Seeders\Admin\HarvestSeeder;
 use Database\Seeders\Admin\PortSeeder;
 use Database\Seeders\Admin\UserSeeder;
 use Database\Seeders\Admin\DockingSeeder;
+use Database\Seeders\Admin\ReasonSeeder;
+use Database\Seeders\Admin\StopSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +23,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             HarvestSeeder::class,
             PortSeeder::class,
-            // DockingSeeder::class,
+            ReasonSeeder::class,
+            DockingSeeder::class,
+            StopSeeder::class,
         ]);
     }
 }
