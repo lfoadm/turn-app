@@ -304,12 +304,26 @@ class DockingController extends Controller
 
         // Tempo total das paradas
         $totalStopMinutes = $docking->stops->sum('duracao_minutos');
+        // Converte para horas e minutos
+        $hours = floor($totalStopMinutes / 60);
+        $minutes = $totalStopMinutes % 60;
+        // Formata para HH:MM
+        $totalStopFormatted = sprintf('%02d:%02d', $hours, $minutes);
+        // dd($totalStopFormatted);
 
-        // Tempo de operação estimado (ex.: encoste até partida, descontando paradas)
-        $operationMinutes = $docking->hora_encoste && $docking->hora_partida
-            ? $docking->hora_encoste->diffInMinutes($docking->hora_partida) - $totalStopMinutes
+        // Tempo de operação (ex.: inicio e fim da carga, descontando paradas)
+        $operationMinutes = $docking->hora_inicio_carga && $docking->hora_fim_carga
+            ? $docking->hora_inicio_carga->diffInMinutes($docking->hora_fim_carga) - $totalStopMinutes
             : 0;
+        //Formatando o tempo de operação para hh:mm
+        $hours = floor($operationMinutes / 60);
+        $minutes = $operationMinutes % 60;
+        $formattedTime = sprintf('%02d:%02d', $hours, $minutes);
 
+        $tonsPerWagon = number_format(($docking->peso_proprio + $docking->peso_terceiros) / $docking->qtd_vagoes_carregados, 3, ',', '.');
+        $tonsPerHour = number_format(($docking->peso_proprio + $docking->peso_terceiros) / ($operationMinutes/60), 3, ',', '.');
+        
+        
         return view('pages.dockings.show', compact(
             'docking',
             'chartLabels',
@@ -317,7 +331,11 @@ class DockingController extends Controller
             'totalStopMinutes',
             'operationMinutes',
             'openWagons',
-            'loadedWagons'
+            'loadedWagons',
+            'totalStopFormatted',
+            'formattedTime',
+            'tonsPerWagon',
+            'tonsPerHour',
         ));
     }
 

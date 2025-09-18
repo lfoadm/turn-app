@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request, DockingIndicatorsService $service)
     {
-        $query = Docking::with('port');
+        $query = Docking::with('port', 'stops.reason');
 
         // filtros de data (se quiser)
         if ($request->filled('start_date') && $request->filled('end_date')) {

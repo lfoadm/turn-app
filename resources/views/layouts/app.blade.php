@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Turn-App Dashboard</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,41 +14,85 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="font-sans antialiased" x-data="{ sidebarOpen: false }">
-    <div class="min-h-screen flex bg-gray-100">
+  </head>
 
-        <!-- Sidebar -->
-        <aside
-            class="fixed top-0 left-0 h-screen bg-white shadow-md z-40 transition-all duration-300
-                   hidden lg:flex flex-col group
-                   w-16 hover:w-64">
-            @include('layouts.sidebar')
-        </aside>
+  <body
+    x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark bg-gray-900': darkMode === true}"
+  >
+    <!-- ===== Preloader Start ===== -->
+    {{-- <include src="./partials/preloader.html"></include> --}}
+    @include('layouts.partials.preloader')
+    <!-- ===== Preloader End ===== -->
 
-        <!-- Sidebar Mobile -->
-        <div class="lg:hidden">
-            <button @click="sidebarOpen = !sidebarOpen"
-                class="fixed top-4 left-4 z-50 p-2 bg-gray-200 rounded">
-                ☰
-            </button>
-            <aside x-show="sidebarOpen" @click.away="sidebarOpen = false"
-                class="fixed top-0 left-0 h-screen w-64 bg-white shadow-md z-40">
-                @include('layouts.sidebar')
-            </aside>
-        </div>
+    <!-- ===== Page Wrapper Start ===== -->
+    <div class="flex h-screen overflow-hidden">
+      <!-- ===== Sidebar Start ===== -->
+      
+      {{-- <include src="./partials/sidebar.html"></include> --}}
+      @include('layouts.partials.sidebar')
+      <!-- ===== Sidebar End ===== -->
 
-        <!-- Conteúdo -->
-        <div class="flex-1 flex flex-col transition-all duration-300 lg:ml-16 lg:group-hover:ml-64">
+      <!-- ===== Content Area Start ===== -->
+      <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+        
+        <!-- Small Device Overlay Start -->
+        {{-- <include src="./partials/overlay.html" /> --}}
+        @include('layouts.partials.overlay')
+        <!-- Small Device Overlay End -->
 
-            <!-- Header fixo -->
-            @include('layouts.header')
+        <!-- ===== Header Start ===== -->
+        <include src="./partials/header.html" />
+        @include('layouts.partials.header')
+        <!-- ===== Header End ===== -->
 
-            <!-- Página -->
-            <main class="flex-1 p-[6px] mt-6">
-                {{ $slot }}
-            </main>
-        </div>
+        <!-- ===== Main Content Start ===== -->
+        <main>
+          <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+            {{-- <div class="grid grid-cols-12 gap-4 md:gap-6">
+              <div class="col-span-12 space-y-6 xl:col-span-7">
+                <!-- Metric Group One -->
+                <include src="./partials/metric-group/metric-group-01.html" />
+                <!-- Metric Group One -->
+
+                <!-- ====== Chart One Start -->
+                <include src="./partials/chart/chart-01.html" />
+                <!-- ====== Chart One End -->
+              </div>
+              <div class="col-span-12 xl:col-span-5">
+                <!-- ====== Chart Two Start -->
+                <include src="./partials/chart/chart-02.html" />
+                <!-- ====== Chart Two End -->
+              </div>
+
+              <div class="col-span-12">
+                <!-- ====== Chart Three Start -->
+                <include src="./partials/chart/chart-03.html" />
+                <!-- ====== Chart Three End -->
+              </div>
+
+              <div class="col-span-12 xl:col-span-5">
+                <!-- ====== Map One Start -->
+                <include src="./partials/map-01.html" />
+                <!-- ====== Map One End -->
+              </div>
+
+              <div class="col-span-12 xl:col-span-7">
+                <!-- ====== Table One Start -->
+                <include src="./partials/table/table-01.html" />
+                <!-- ====== Table One End -->
+              </div>
+            </div> --}}
+          </div>
+          {{ $slot }}
+        </main>
+        <!-- ===== Main Content End ===== -->
+      </div>
+      <!-- ===== Content Area End ===== -->
     </div>
-</body>
+    <!-- ===== Page Wrapper End ===== -->
+  </body>
 </html>

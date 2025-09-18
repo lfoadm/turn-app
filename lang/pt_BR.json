@@ -101,6 +101,7 @@
   "Payment Required": "Pagamento necessário",
   "Permanently delete your account.": "Deleta permanentemente a sua conta.",
   "Permissions": "Permissões",
+  "Phone": "Celular",
   "Please click the button below to verify your email address.": "Clique no botão abaixo para verificar seu endereço de e-mail",
   "Please confirm access to your account by entering one of your emergency recovery codes.": "Por favor, confirme o acesso à sua conta digitando um de seus códigos de emergência.",
   "Please confirm access to your account by entering the authentication code provided by your authenticator application.": "Por favor, confirme o acesso à sua conta digitando o código da autenticação provido pelo seu aplicativo autenticador.",
@@ -136,6 +137,7 @@
   "Showing": "Mostrando",
   "Stops": "Paradas",
   "Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.": "Armazene esses códigos de recuperação em um local seguro. Eles podem ser utilizados para recuperar o acesso à sua conta caso você perca o seu telefone.",
+  "Support": "Suporte",
   "Switch Teams": "Mudar os Times",
   "to": "até",
   "The team's name and owner information.": "O nome do time e informações do proprietário.",
@@ -198,5 +200,11 @@
   "Ensure your account is using a long, random password to stay secure": "Certifique-se de que sua conta esteja usando uma senha longa e aleatória para permanecer segura",
   "Log in to your account": "Entrar na sua conta",
   "Enter your email and password below to log in": "Digite seu e-mail e senha abaixo para entrar",
-  "Don't have an account?": "Não tem uma conta?"
+  "Don't have an account?": "Não tem uma conta?",
+
+  "Account settings": "Configurações de conta",
+  "Title": "Título"
+  
+
+
 }

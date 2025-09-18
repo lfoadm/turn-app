@@ -1,4 +1,4 @@
-<header class="fixed top-0 right-0 h-16 bg-white shadow z-30 flex items-center px-6 transition-all duration-300 lg:left-16 lg:group-hover:left-64 left-16 justify-between">
+<header class="fixed top-0 right-0 h-16 bg-white shadow z-30 flex items-center px-6 transition-all duration-300 lg:left-48 lg:group-hover:left-64 left-48 justify-between">
     <!-- Left Section: App Name -->
     <div class="flex items-center">
         <h1 class="text-xl hidden md:flex font-semibold text-gray-800">

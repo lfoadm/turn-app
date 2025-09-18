@@ -87,6 +87,16 @@ class Docking extends Model
         return Carbon::parse($this->hora_encoste)->format('d/m/Y H:i');
     }
 
+    public function getHoraInicioCargaFormattedAttribute()
+    {
+        return Carbon::parse($this->hora_inicio_carga)->format('d/m/Y H:i');
+    }
+
+    public function getHoraFimCargaFormattedAttribute()
+    {
+        return Carbon::parse($this->hora_fim_carga)->format('d/m/Y H:i');
+    }
+
     public function getPesoProprioFormattedAttribute()
     {
         return number_format($this->peso_proprio, 3, ',', '.');

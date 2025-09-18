@@ -71,6 +71,8 @@
                                 <th class="px-4 py-2 text-left text-sm">Destino</th>
                                 <th class="px-4 py-2 text-left text-sm">Horário encoste</th>
                                 <th class="px-4 py-2 text-left text-sm">Horário partida</th>
+                                <th class="px-4 py-2 text-left text-sm">Horário inicio</th>
+                                <th class="px-4 py-2 text-left text-sm">Horário fim</th>
                                 <th class="px-4 py-2 text-left text-sm">Volume Coruripe</th>
                                 <th class="px-4 py-2 text-left text-sm">Volume Rumo</th>
                                 <th class="px-4 py-2 text-left text-sm">Volume total</th>
@@ -85,6 +87,8 @@
                                     <td class="px-4 py-2 text-sm">{{ $docking->port->title }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $docking->hora_encoste_formatted }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $docking->hora_partida_formatted }}</td>
+                                    <td class="px-4 py-2 text-xs">{{ $docking->hora_inicio_carga }}</td>
+                                    <td class="px-4 py-2 text-xs">{{ $docking->hora_fim_carga }}</td>
                                     <td class="px-4 py-2 text-xs">{{ $docking->peso_proprio_formatted }}</td>
                                     <td class="px-4 py-2 text-sm">{{ $docking->peso_terceiros_formatted }}</td>
                                     <td class="px-4 py-2 text-sm">{{ $docking->volume_total }}</td>

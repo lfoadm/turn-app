@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
             HarvestSeeder::class,
             PortSeeder::class,
             ReasonSeeder::class,
-            DockingSeeder::class,
-            StopSeeder::class,
+            // DockingSeeder::class,
+            // StopSeeder::class,
         ]);
     }
 }

@@ -68,4 +68,9 @@ class PortController extends Controller
 
         return redirect()->route('ports.index')->with('success', 'Terminal portuário apagado.');
     }
+
+    public function painel()
+    {
+        return view('pages.testes.test');
+    }
 }

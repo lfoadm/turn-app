@@ -58,7 +58,7 @@
                     <hr class="my-4">
                 
                 <div class="bg-white p-3">
-                    @include('pages.dashboard.includes.cards')
+                    {{-- @include('pages.dashboard.includes.cards') --}}
                     <div class="p-6 bg-gray-100 rounded-md">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -92,7 +92,7 @@
                                     <i data-lucide="scale" class="w-6 h-6 text-yellow-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-500">Média ton/vagão</p>
+                                    <p class="text-sm font-medium text-gray-500">Tons p/vagão (média)</p>
                                     <p class="text-2xl font-bold text-gray-800">{{ $indicators['avgTonPerWagon'] }}</p>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                     <i data-lucide="clock-8" class="w-6 h-6 text-purple-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-500">Média vagões/hora</p>
+                                    <p class="text-sm font-medium text-gray-500">Vagões p/hora (média)</p>
                                     <p class="text-2xl font-bold text-gray-800">{{ $indicators['avgWagonsPerHour'] }}</p>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                     <i data-lucide="activity" class="w-6 h-6 text-pink-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-500">Média ton/hora</p>
+                                    <p class="text-sm font-medium text-gray-500">Tons carregadas p/ hora (média)</p>
                                     <p class="text-2xl font-bold text-gray-800">{{ $indicators['avgTonsPerHour'] }}</p>
                                 </div>
                             </div>
@@ -125,8 +125,8 @@
                                     <i data-lucide="timer" class="w-6 h-6 text-indigo-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-500">Tempo médio início (min)</p>
-                                    <p class="text-2xl font-bold text-gray-800">{{ $indicators['avgStartDelay'] }}</p>
+                                    <p class="text-sm font-medium text-gray-500">Tempo médio p/ início</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{-- $indicators['avgStartDelay'] --}}</p>
                                 </div>
                             </div>
 
@@ -148,7 +148,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-500">Tempo médio ciclo (horas)</p>
-                                    <p class="text-2xl font-bold text-gray-800">{{ $indicators['avgCycleTime'] }}</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{-- $indicators['avgCycleTime'] --}}</p>
                                 </div>
                             </div>
 
@@ -181,7 +181,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-500">Vagões abertos (%)</p>
-                                    <p class="text-2xl font-bold text-gray-800">{{ $indicators['wagonsOpen'] }}%</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{-- $indicators['wagonsOpen'] --}}%</p>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +192,3 @@
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    lucide.createIcons();
-</script>

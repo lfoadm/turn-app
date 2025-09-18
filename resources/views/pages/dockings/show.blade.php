@@ -45,6 +45,31 @@
                         <p class="text-xs text-gray-500">Volume Total</p>
                         <p class="text-lg font-bold text-purple-700">{{ $docking->volume_total }}</p>
                     </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Início do carregamento</p>
+                        <p class="text-lg font-bold text-purple-700">{{ $docking->hora_inicio_carga_formatted ?? '-'  }}</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Fim do carregamento</p>
+                        <p class="text-lg font-bold text-purple-700">{{ $docking->hora_fim_carga_formatted ?? '-'   }}</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Tempo carregamento (desconto das paradas)</p>
+                        <p class="text-lg font-bold text-purple-700">{{ $formattedTime }}</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Total de tempo parado</p>
+                        <p class="text-lg font-bold text-red-600">{{ $totalStopFormatted }}</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Toneladas média por vagão</p>
+                        <p class="text-lg font-bold text-purple-700">{{ $tonsPerWagon }}</p>
+                    </div>
+                    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+                        <p class="text-xs text-gray-500">Toneladas média carregadas por hora</p>
+                        <p class="text-lg font-bold text-purple-700">{{ $tonsPerHour }}</p>
+                    </div>
+                    
                 </div>
 
                 <div class="mt-6">
@@ -133,21 +158,35 @@
     {{-- Chart.js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Paleta de cores gerada dinamicamente para os motivos
+        // Função utilitária: converte minutos em hh:mm
+        function formatMinutesToHHMM(minutes) {
+            const h = Math.floor(minutes / 60);
+            const m = minutes % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+
+        // Paleta de cores para os motivos
         const reasonColors = [
-            '#34d399', '#3b82f6', '#facc15', '#f87171', 
-            '#a78bfa', '#2dd4bf', '#ef4444', '#10b981', 
-            '#8b5cf6', '#eab308'
+            '#9ED2BE', // Verde-água
+            '#A0D8B3', // Verde-menta
+            '#B5EAD7', // Verde pastel claro
+            '#C7CEEA', // Azul lavanda
+            '#D4ECDD', // Verde claro suave
+            '#E9E3D4', // Bege
+            '#F2EFEA', // Cinza claro
+            '#B0C4DE', // Azul acinzentado
+            '#E0BBE4', // Lilás
+            '#FEE1E8'  // Rosa claro
         ];
 
-        // Paradas por motivo
+        // --- 1. Paradas por motivo ---
         const stopsByReasonCtx = document.getElementById('stopsByReasonChart').getContext('2d');
         new Chart(stopsByReasonCtx, {
             type: 'pie',
             data: {
                 labels: @json($chartLabels),
                 datasets: [{
-                    data: @json($chartData),
+                    data: @json($chartData), // minutos
                     backgroundColor: reasonColors.slice(0, @json(count($chartLabels))),
                     borderWidth: 1
                 }]
@@ -156,22 +195,30 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Tempo de paradas por motivo (minutos)',
+                        text: 'Tempo de paradas por motivo (hh:mm)',
                         font: { size: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const minutes = context.raw;
+                                return `${context.label}: ${formatMinutesToHHMM(minutes)} h`;
+                            }
+                        }
                     }
                 }
             }
         });
 
-        // Tempo de operação vs paradas
+        // --- 2. Tempo de operação vs paradas ---
         const operationCtx = document.getElementById('operationChart').getContext('2d');
         new Chart(operationCtx, {
             type: 'doughnut',
             data: {
                 labels: ['Tempo Operação', 'Tempo Paradas'],
                 datasets: [{
-                    data: [@json($operationMinutes), @json($totalStopMinutes)],
-                    backgroundColor: ['#3b82f6', '#f87171'],
+                    data: [@json($operationMinutes), @json($totalStopMinutes)], // minutos
+                    backgroundColor: ['#06B6D4', '#ef4444'],
                     borderWidth: 1
                 }]
             },
@@ -179,22 +226,39 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Proporção de tempo de operação vs paradas',
+                        text: 'Proporção de tempo de operação vs paradas (hh:mm)',
                         font: { size: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const minutes = context.raw;
+                                return `${context.label}: ${formatMinutesToHHMM(minutes)} h`;
+                            }
+                        }
                     }
                 }
             }
         });
 
-        // Vagões abertos x carregados
+        const loadedWagons = @json($docking->qtd_vagoes_carregados);
+        const openWagons = @json($docking->qtd_vagoes_abertos);
+
+        // Garante que o número de vagões abertos não exceda o total carregado
+        const correctedOpenWagons = Math.min(openWagons, loadedWagons);
+
+        // Calcula o número de vagões carregados que NÃO estavam abertos
+        const closedLoadedWagons = loadedWagons - correctedOpenWagons;
+
         const wagonsCtx = document.getElementById('wagonsChart').getContext('2d');
+
         new Chart(wagonsCtx, {
-            type: 'pie',
+            type: 'pie', // Ou 'doughnut'
             data: {
-                labels: ['Vagões Abertos', 'Vagões Carregados'],
+                labels: ['Vagões Abertos', 'Vagões Carregados (Fechados)'],
                 datasets: [{
-                    data: [@json($openWagons), @json($loadedWagons)],
-                    backgroundColor: ['#10b981', '#6366f1'],
+                    data: [correctedOpenWagons, closedLoadedWagons],
+                    backgroundColor: ['#e1e1e1', '#ff7700'],
                     borderWidth: 1
                 }]
             },
@@ -202,8 +266,18 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Status dos Vagões',
+                        text: 'Proporção de Vagões Carregados',
                         font: { size: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                const value = context.raw;
+                                const percentage = total > 0 ? ((value / total) * 100).toFixed(2) + '%' : '0%';
+                                return `${context.label}: ${value} (${percentage})`;
+                            }
+                        }
                     }
                 }
             }
