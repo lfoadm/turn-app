@@ -8,19 +8,15 @@ viewBox="0 0 37.78 37.78"
  <defs>
   <style type="text/css">
    <![CDATA[
-    .str0 {stroke:#233D82;stroke-width:0.13;stroke-miterlimit:22.9256}
+    .str0 {stroke:#FEFEFE;stroke-width:0.13;stroke-miterlimit:22.9256}
     .fil0 {fill:none}
-    .fil1 {fill:url(#id0)}
+    .fil1 {fill:#FEFEFE}
    ]]>
   </style>
-  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="53.42" y1="32.01" x2="53.32" y2="6.16">
-   <stop offset="0" style="stop-opacity:1; stop-color:#19255D"/>
-   <stop offset="1" style="stop-opacity:1; stop-color:#2A438F"/>
-  </linearGradient>
  </defs>
  <g id="Camada_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <g id="_2604785233168">
+  <g id="_2604111582880">
    <rect class="fil0 str0" x="0.07" y="0.07" width="37.65" height="37.65" rx="8.61" ry="8.61"/>
    <path class="fil1" d="M14.33 9.68c-1.01,0.1 -2.42,-0.2 -3.25,0.28 -1.85,1.07 -1.6,3.91 0.04,4.59 0.96,0.39 2.2,0.18 3.26,0.26 0.06,4.63 -0.68,9.96 1.33,13.83 1.44,2.78 4.93,5.87 9.58,5.42 2.17,-0.2 3.46,-2.21 2.21,-4.25 -1.25,-2.02 -3.47,-0.05 -5.7,-1.87 -1.44,-1.17 -2.17,-2.77 -2.18,-5.4 -0.01,-2.59 0,-5.17 -0.02,-7.76 2.87,0.01 6.6,0.77 6.62,-2.51 0.02,-3.3 -3.76,-2.57 -6.56,-2.57 -0.33,-2.63 0.59,-5.94 -2.56,-6.02 -3.4,-0.09 -2.52,3.25 -2.77,6z"/>
   </g>

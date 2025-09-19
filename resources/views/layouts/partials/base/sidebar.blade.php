@@ -5,7 +5,7 @@
   <!-- SIDEBAR HEADER -->
   <div :class="sidebarToggle ? 'justify-center' : 'justify-between'" class="flex items-center gap-2 pt-8 sidebar-header pb-7">
     <a href="{{ route('dashboard') }}">
-      <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
+      <span class="logo " :class="sidebarToggle ? 'hidden' : ''">
         <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="" class="h-12 dark:hidden">
         <img class="hidden dark:block h-12" src="{{ asset('assets/images/logo/logo-dark.svg') }}" alt="Logo" />
       </span>

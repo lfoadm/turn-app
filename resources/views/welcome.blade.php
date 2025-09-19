@@ -17,7 +17,7 @@
     <body class="bg-gray-800 text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex items-center justify-center w-full min-h-screen transition-opacity opacity-100 duration-750 starting:opacity-0 flex-col bg-gray-800 text-gray-200">
-                <img src="{{asset('assets/images/logo-dark.svg')}}" alt="" class="w-64 mb-6 lg:mb-9">
+                <img src="{{asset('assets/images/logo/logo-dark.svg')}}" alt="" class="w-64 mb-6 lg:mb-9">
                 <div class="flex flex-col items-center justify-center text-center p-6 lg:p-12 max-w-4xl w-full">
                     <h1 class="text-4xl lg:text-6xl font-extrabold text-white dark:text-cyan-400 mb-4 tracking-tight">
                         Gestão Ferroviária Inteligente

@@ -5,16 +5,20 @@
         </div>
         <div class="bg-white dark:bg-gray-900 shadow-lg rounded-2xl overflow-hidden transition">
             <div class="p-6 rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03 ] dark:bg-gray-800">
-                <!-- Título + Botão -->
-                <div x-data="{ 
-                    title: '🌿 Nova safra',
-                    showButton: {{ request()->routeIs('harvests.create') ? 'false' : 'true' }}
-                }">
-                @include('layouts.partials.ui.title.title')
+
+                <!-- Título  -->
+                <div 
+                    x-data="{ 
+                        title: '🌿 Nova safra',
+                        showButton: {{ request()->routeIs('harvests.create') ? 'false' : 'true' }}
+                    }"
+                >
+                    @include('layouts.partials.base.title-header')
                 </div>
 
-                <!-- Mensagem de sucesso -->
-                @include('layouts.partials.ui.alert.alert-error')
+
+                <!-- Mensagem de erros -->
+                <x-alert-error></x-alert-error>
                 
                 <!-- Formulario -->
                 <div class="p-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-md">
