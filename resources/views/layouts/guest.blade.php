@@ -23,7 +23,7 @@
         :class="{'dark bg-gray-900': darkMode === true}"
     >
     <!-- ===== Preloader Start ===== -->
-    @include('layouts.partials.preloader')
+    @include('layouts.partials.base.preloader')
     <!-- ===== Preloader End ===== -->
 
      <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
