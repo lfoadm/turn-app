@@ -6,6 +6,7 @@
     <div class="flex items-center gap-4">
         <!-- Input de pesquisa -->
         <x-input-search></x-input-search>
+        
 
         <!-- Botão de ação -->
         <template x-if="showButton">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\Harvest;
 use App\Models\User;
 use Database\Seeders\Admin\HarvestSeeder;
 use Database\Seeders\Admin\PortSeeder;
@@ -27,5 +28,8 @@ class DatabaseSeeder extends Seeder
             // DockingSeeder::class,
             // StopSeeder::class,
         ]);
+
+        Harvest::factory(199)->create();
+
     }
 }

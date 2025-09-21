@@ -1,26 +1,27 @@
 <x-app-layout>
-    <div class="space-y-5 sm:space-y-6 p-6">
+    <div class="mx-auto max-w-[1440px] p-4 md:p-6">
+        <!-- Breadcrumb / Título -->
         <div x-data="{ pageName: `Editando a safra`}" class="px-3 py-2">
             @include('layouts.partials.base.breadcrumb')
         </div>
-        <div class="bg-white dark:bg-gray-900 shadow-lg rounded-2xl overflow-hidden transition">
-            <div class="p-6 rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03 ] dark:bg-gray-800">
-                <!-- Título  -->
-                <div 
-                    x-data="{ 
-                        title: '🩹 Atualizano safra',
-                        showButton: {{ request()->routeIs('harvests.edit') ? 'false' : 'true' }}
-                    }"
-                >
-                    @include('layouts.partials.base.title-header')
-                </div>
 
+        <!-- Datatable Container -->
+        <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <!-- Cabeçalho com título e botão Novo -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between my-4 px-4">
+                <h3 class="text-base font-medium text-gray-800 dark:text-white/90 mb-2 sm:mb-0">
+                    🌱 Editando a safra {{$harvest->title}}
+                </h3>
+            </div>
+
+            <div class="border-t border-gray-100 p-5 dark:border-gray-800 sm:p-6">
                 <!-- Mensagem de erro -->
                 <x-alert-error></x-alert-error>
-                
-                <!-- Formulario -->
-                <div class="p-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-md">
-                    <form action="{{ route('harvests.update', $harvest) }}" method="POST" class="space-y-6">
+                <!-- DataTable Start -->
+                <div x-data="dataTable()" class="overflow-hidden rounded-xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
+
+                  <!-- Formulario -->
+                    <form action="{{ route('harvests.update', $harvest) }}" method="POST" class="space-y-6 m-6">
                         @csrf
                         @method('PUT')
 
@@ -77,7 +78,11 @@
                             </a>
                         </div>
                     </form>
+                
+                    
+
                 </div>
+                <!-- DataTable End -->
             </div>
         </div>
     </div>

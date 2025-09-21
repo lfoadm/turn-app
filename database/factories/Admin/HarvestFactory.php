@@ -16,8 +16,9 @@ class HarvestFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
+         return [
+            'title' => fake()->firstName(),
+            'is_active' => false,
         ];
     }
 }

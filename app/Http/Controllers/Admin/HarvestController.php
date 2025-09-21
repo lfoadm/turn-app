@@ -10,18 +10,24 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HarvestController extends Controller
 {
-    use AuthorizesRequests;
-    
-    public function __construct()
-    {
-        $this->authorize('viewAny', User::class);
-    }
-
     public function index()
     {
+        // $harvests = Harvest::latest()->paginate(9);
+        // return view('pages.harvests.index', compact('harvests'));
+        // $harvests = Harvest::latest()->paginate(9);
+        $harvests = Harvest::latest()->get();
 
-        $harvests = Harvest::latest()->paginate(9);
-        return view('pages.harvests.index', compact('harvests'));
+        // Transforma em array pronto para o front
+        $harvestsJson = $harvests->map(fn($h) => [
+            'id'        => $h->id,
+            'title'     => $h->title,   // precisa existir na tabela
+            'is_active' => $h->is_active ? 'ATIVA' : 'INATIVA',
+        ]);
+
+        return view('pages.harvests.index', [
+            'harvests'     => $harvests,
+            'harvestsJson' => $harvestsJson,
+        ]);
     }
 
     public function create()

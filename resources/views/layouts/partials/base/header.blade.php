@@ -320,12 +320,8 @@
               </button> 
             </form>
           </li>
-          
         </ul>
       </div>
-
-
-
         <!-- Dropdown End -->
       </div>
       <!-- User Area -->
