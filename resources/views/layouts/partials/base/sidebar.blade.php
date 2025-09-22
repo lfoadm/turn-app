@@ -9,7 +9,12 @@
         <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="" class="h-12 dark:hidden">
         <img class="hidden dark:block h-12" src="{{ asset('assets/images/logo/logo-dark.svg') }}" alt="Logo" />
       </span>
-      <img class="logo-icon" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="{{ asset('assets/images/logo/logo-icon.svg') }}" alt="Logo" />
+      <img 
+          class="logo-icon transition-all duration-300" 
+          :class="sidebarToggle ? 'lg:block' : 'hidden'" 
+          :src="darkMode ? '{{ asset('assets/images/logo/logo-icon-dark.svg') }}' : '{{ asset('assets/images/logo/logo-icon.svg') }}'" 
+          alt="Logo" 
+      />
     </a>
   </div>
   <!-- SIDEBAR HEADER -->
