@@ -4,23 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Port;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class PortController extends Controller
 {
-    use AuthorizesRequests;
-    
-    public function __construct()
-    {
-        $this->authorize('viewAny', User::class);
-    }
-
     public function index()
     {
-        $ports = Port::latest()->paginate(9);
-        return view('pages.ports.index', compact('ports'));
+        $ports = Port::latest()->get();
+
+        // Transforma em array pronto para o front
+        $portsJson = $ports->map(fn($h) => [
+            'id'        => $h->id,
+            'title'     => $h->title,
+            'description' => $h->description,
+        ]);
+
+        return view('pages.ports.index', [
+            'ports'     => $ports,
+            'portsJson' => $portsJson,
+        ]);
     }
 
     public function create()

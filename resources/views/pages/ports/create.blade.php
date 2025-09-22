@@ -1,62 +1,65 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Novo terminal') }}
-        </h2>
-    </x-slot>
+    <div class="mx-auto max-w-[1440px] p-4 md:p-6">
+        <!-- Breadcrumb / Título -->
+        <div x-data="{ pageName: `Criando novo terminal` }" class="px-3 py-2">
+            @include('layouts.partials.base.breadcrumb')
+        </div>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    
-                    <h1 class="text-lg font-bold mb-6">Cadastrar novo terminal portuário</h1>
+        <!-- Datatable Container -->
+        <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <!-- Cabeçalho com título e botão Novo -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between my-4 px-4">
+                <h3 class="text-base font-medium text-gray-800 dark:text-white/90 mb-2 sm:mb-0">
+                    🚢 Criando novo terminal portuário
+                </h3>
+            </div>
 
-                    @if ($errors->any())
-                        <div class="mb-4 p-3 bg-red-100 text-red-800 rounded">
-                            <ul class="list-disc pl-5">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+            <div class="border-t border-gray-100 p-5 dark:border-gray-800 sm:p-6">
 
-                    <form action="{{ route('ports.store') }}" method="POST" class="space-y-6">
+                <!-- Mensagem de erro -->
+                <x-alert-error></x-alert-error>
+
+                <!-- DataTable Start -->
+                <div x-data="dataTable()"
+                    class="overflow-hidden rounded-xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
+
+                    <!-- Formulario -->
+                    <form action="{{ route('ports.store') }}" method="POST" class="space-y-6 m-6">
                         @csrf
 
-                        <!-- Title -->
+                        <!-- Campo título -->
                         <div>
-                            <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-                            <input type="text" name="title" id="title"
-                                   value="{{ old('title') }}"
-                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                   placeholder="Exemplo: CLI, TEC, TAC, TEAG"
-                                   required>
+                            <x-input-label for="title" :value="__('Título')" />
+                            <x-text-input id="title" name="title" type="text"
+                                placeholder="Exemplo: CLI, TEC, TAC, TEAG" value="{{ old('title') }}" required
+                                autofocus
+                                class="mt-1 block w-full rounded-xl border border-gray-900 shadow-sm
+                                        focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50
+                                        dark:bg-gray-800 dark:border-gray-400 dark:text-white dark:placeholder-gray-400
+                                        transition h-11 px-4 text-sm" />
                         </div>
 
-                        <!-- Description -->
+                        <!-- Campo título -->
                         <div>
-                            <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
-                            <textarea name="description" id="description" rows="3"
-                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                      placeholder="Digite detalhes do porto...">{{ old('description') }}</textarea>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <x-text-input id="description" name="description" type="text"
+                                placeholder="Descrição breve" value="{{ old('description') }}" required autofocus
+                                class="mt-1 block w-full rounded-xl border border-gray-900 shadow-sm
+                                        focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50
+                                        dark:bg-gray-800 dark:border-gray-400 dark:text-white dark:placeholder-gray-400
+                                        transition h-11 px-4 text-sm" />
                         </div>
 
-                        <!-- Buttons -->
+
+                        <!-- Botões -->
                         <div class="flex items-center space-x-4">
-                            <button type="submit"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                Salvar
-                            </button>
+                            <x-primary-button>Salvar</x-primary-button>
 
-                            <a href="{{ route('ports.index') }}"
-                               class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                                Cancelar
+                            <a href="{{ route('ports.index') }}">
+                                <x-secondary-button>{{ __('Cancel') }}</x-secondary-button>
                             </a>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

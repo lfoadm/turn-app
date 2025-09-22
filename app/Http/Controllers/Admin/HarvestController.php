@@ -12,9 +12,6 @@ class HarvestController extends Controller
 {
     public function index()
     {
-        // $harvests = Harvest::latest()->paginate(9);
-        // return view('pages.harvests.index', compact('harvests'));
-        // $harvests = Harvest::latest()->paginate(9);
         $harvests = Harvest::latest()->get();
 
         // Transforma em array pronto para o front
