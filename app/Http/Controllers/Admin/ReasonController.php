@@ -10,8 +10,22 @@ class ReasonController extends Controller
 {
     public function index()
     {
-        $reasons = Reason::orderBy('title', 'asc')->get();
-        return view('pages.reasons.index', compact('reasons'));
+        // $reasons = Reason::orderBy('title', 'asc')->get();
+        // return view('pages.reasons.index', compact('reasons'));
+
+        $reasons = Reason::latest()->get();
+
+        // Transforma em array pronto para o front
+        $reasonsJson = $reasons->map(fn($h) => [
+            'id'        => $h->id,
+            'title'     => $h->title,   // precisa existir na tabela
+            'purge'     => $h->purge ? 'Sim' : 'Não',
+        ]);
+
+        return view('pages.reasons.index', [
+            'reasons'     => $reasons,
+            'reasonsJson' => $reasonsJson,
+        ]);
     }
 
     public function create()

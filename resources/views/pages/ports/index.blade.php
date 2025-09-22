@@ -166,25 +166,6 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- 
-                    <!-- Pagination Controls -->
-                    <div class="border-t border-gray-100 py-4 dark:border-gray-800 mx-3">
-                        <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between">
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                Mostrando <span x-text="startEntry"></span> a <span x-text="endEntry"></span> de <span x-text="totalEntries"></span> registros
-                            </p>
-
-                            <div class="flex items-center justify-center gap-1 mt-2 xl:mt-0">
-                                <button @click="prevPage()" :disabled="currentPage === 1" class="px-3 py-1 border rounded disabled:opacity-50 dark:text-white/85">Anterior</button>
-                                <template x-for="page in pagesAroundCurrent" :key="page">
-                                    <button @click="goToPage(page)" :class="currentPage === page ? 'bg-cyan-800 text-white' : 'border px-3 py-1 rounded dark:text-white/85'" class="px-3 py-1 border rounded text-cyan-800" x-text="page"></button>
-                                </template>
-                                <button @click="nextPage()" :disabled="currentPage === totalPages" class="px-3 py-1 border rounded disabled:opacity-50 dark:text-white/85">Próximo</button>
-                            </div>
-                        </div>
-                    </div> --}}
-
                 </div>
                 <!-- DataTable End -->
             </div>

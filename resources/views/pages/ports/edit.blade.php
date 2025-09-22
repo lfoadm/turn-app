@@ -29,7 +29,7 @@
                         <!-- Campo título -->
                         <div>
                             <x-input-label for="title" :value="__('Título')" />
-                            <x-text-input id="title" name="title" type="text" placeholder="Exemplo: 2023/24"
+                            <x-text-input id="title" name="title" type="text"
                                 value="{{ old('title', $port->title) }}" required autofocus
                                 class="mt-1 block w-full rounded-xl border border-gray-900 shadow-sm
                                     focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50
