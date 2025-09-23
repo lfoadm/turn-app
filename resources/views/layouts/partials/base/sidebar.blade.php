@@ -239,6 +239,17 @@
                 </li>
               </ul>
             </div>
+
+            <div class="overflow-hidden transform translate" :class="(selected === 'Usuários') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('roles.index') }}" class="menu-dropdown-item group {{ request()->routeIs('roles.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                    Grupos de usuários
+                  </a>
+                </li>
+              </ul>
+            </div>
+
             <!-- Dropdown Menu End -->
           </li>
           <!-- Menu Item Cadastros -->

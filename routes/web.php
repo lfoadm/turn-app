@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ACL\RoleController;
 use App\Http\Controllers\Admin\DockingController;
 use App\Http\Controllers\Admin\HarvestController;
 use App\Http\Controllers\Admin\NotificationController;
@@ -41,9 +42,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    
+    // CONFIGURAÇÕES DE PERFIL
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // ACL - PERMISSÕES E GRUPOS DE USUÁRIOS
+    //Route::resource('roles', RoleController::class)->names('roles');
+
+    Route::prefix('acl')->group(function () {
+        // Roles
+        Route::resource('roles', RoleController::class)->names('roles');
+
+        // Rota específica para atualizar permissões do grupo
+        Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])
+            ->name('roles.updatePermissions');
+
+        // Permissions
+        Route::resource('permissions', PermissionController::class);
+    });
+
 });
 
 Route::get('painel', [PortController::class, 'painel'])->name('painel');

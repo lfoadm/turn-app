@@ -11,6 +11,8 @@ class Role extends Model
     /** @use HasFactory<\Database\Factories\ACL\RoleFactory> */
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);

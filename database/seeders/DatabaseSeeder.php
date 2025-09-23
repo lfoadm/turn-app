@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Admin\Harvest;
 use App\Models\User;
+use Database\Seeders\ACL\PermissionSeeder;
+use Database\Seeders\ACL\RoleSeeder;
 use Database\Seeders\Admin\HarvestSeeder;
 use Database\Seeders\Admin\PortSeeder;
 use Database\Seeders\Admin\UserSeeder;
@@ -27,6 +29,8 @@ class DatabaseSeeder extends Seeder
             ReasonSeeder::class,
             // DockingSeeder::class,
             // StopSeeder::class,
+            RoleSeeder::class,
+            PermissionSeeder::class,
         ]);
 
         Harvest::factory(199)->create();
