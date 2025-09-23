@@ -157,7 +157,7 @@
               </ul>
             </div>
             {{-- USUÁRIOS --}}
-            <div class="overflow-hidden transform translate" :class="(selected === 'Cadastros') ? 'block' :'hidden'">
+            {{-- <div class="overflow-hidden transform translate" :class="(selected === 'Cadastros') ? 'block' :'hidden'">
               <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
                 <li>
                   <a href="{{ route('users.index') }}" class="menu-dropdown-item group {{ request()->routeIs('users.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
@@ -165,7 +165,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> --}}
 
             <!-- Dropdown Menu End -->
           </li>
@@ -180,7 +180,7 @@
             class="menu-group-title"
             :class="sidebarToggle ? 'lg:hidden' : ''"
           >
-            others
+            OUTROS
           </span>
 
           <svg
@@ -201,7 +201,48 @@
           </svg>
         </h3>
 
+        
+
         <ul class="flex flex-col gap-4 mb-6">
+          <!-- Menu Item Usuários -->
+          <li>
+            <a href="#" @click.prevent="selected = (selected === 'Usuários' ? '':'Usuários')" class="menu-item group"
+              :class=" (selected === 'Usuários') || (page === 'Lista' || page === 'Pendentes') ? 'menu-item-active' : 'menu-item-inactive'"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"
+              :class="(selected === 'Usuários') || (page === 'Lista' || page === 'Pendentes') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Usuários</span>
+              <svg
+                class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
+                :class="[(selected === 'Usuários') ? 'menu-item-arrow-active' : 'menu-item-arrow-inactive', sidebarToggle ? 'lg:hidden' : '' ]"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              ><path d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <!-- Dropdown Menu Start -->
+            
+            {{-- LISTAGEM --}}
+            <div class="overflow-hidden transform translate" :class="(selected === 'Usuários') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('users.index') }}" class="menu-dropdown-item group {{ request()->routeIs('users.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                    Lista de usuários
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Dropdown Menu End -->
+          </li>
+          <!-- Menu Item Cadastros -->
+
           <!-- Menu Item Charts -->
           <li>
             <a
@@ -285,6 +326,8 @@
           </li>
           <!-- Menu Item Charts -->
         </ul>
+
+
       </div>
     </nav>
   </div>

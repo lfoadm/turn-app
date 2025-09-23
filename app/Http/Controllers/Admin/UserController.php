@@ -5,22 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
-    use AuthorizesRequests;
-    
-    public function __construct()
-    {
-        $this->authorize('viewAny', User::class);
-    }
-    
     public function index()
     {
-        $usersPending = User::where('role', 'new')->get();
-        $users = User::where('role', '!=', 'new')->paginate();
-        return view('pages.users.index', compact('users', 'usersPending'));
+        // $usersPending = User::where('role', 'new')->get();
+        // $users = User::paginate(10);
+        // return view('pages.users.index', compact('users'));
+
+        $users = User::latest()->get();
+
+        // Transforma em array pronto para o front
+        $usersJson = $users->map(fn($h) => [
+            'id'        => $h->id,
+            'firstname'     => $h->firstname,
+            'lastname'      => $h->lastname,
+            'phone'         => $h->phone,
+            'email'         => $h->email,
+        ]);
+
+        return view('pages.users.index', [
+            'users'     => $users,
+            'usersJson' => $usersJson,
+        ]);
     }
 
     public function edit(User $user)
@@ -42,7 +50,23 @@ class UserController extends Controller
 
     public function approvationUser()
     {
-        $usersPending = User::where('role', 'new')->get();
-        return view('pages.users.pending', compact( 'usersPending'));
+        // $usersPending = User::all();
+        // return view('pages.users.pending', compact( 'usersPending'));
+
+        $users = User::latest()->get();
+
+        // Transforma em array pronto para o front
+        $usersJson = $users->map(fn($h) => [
+            'id'        => $h->id,
+            'firstname'     => $h->firstname,
+            'lastname'      => $h->lastname,
+            'phone'         => $h->phone,
+            'email'         => $h->email,
+        ]);
+
+        return view('pages.users.pending', [
+            'users'     => $users,
+            'usersJson' => $usersJson,
+        ]);
     }
 }

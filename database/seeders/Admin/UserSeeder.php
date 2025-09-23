@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
             'firstname' => 'Leandro',
             'lastname' => 'Oliveira',
             'phone' => '34999749344',
-            'role' => 'admin',
             'email' => 'lfoadm@icloud.com',
             'password' => bcrypt($password),
         ]);
@@ -27,7 +26,6 @@ class UserSeeder extends Seeder
             'firstname' => 'Uelinton',
             'lastname' => 'Martins',
             'phone' => '34999749345',
-            'role' => 'manager',
             'email' => 'uel@usinacoruripe.com.br',
             'password' => bcrypt($password),
         ]);
@@ -36,7 +34,6 @@ class UserSeeder extends Seeder
             'firstname' => 'PIT',
             'lastname' => 'Terminal Iturama',
             'phone' => '34999749346',
-            'role' => 'user',
             'email' => 'terminal.iturama@usinacoruripe.com.br',
             'password' => bcrypt($password),
         ]);

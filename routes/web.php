@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DockingController;
 use App\Http\Controllers\Admin\HarvestController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PortController;
 use App\Http\Controllers\Admin\ReasonController;
 use App\Http\Controllers\Admin\SearchController;
@@ -21,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('harvests', HarvestController::class)->names('harvests');
     Route::resource('ports', PortController::class)->names('ports');
     Route::resource('dockings', DockingController::class)->names('dockings');
+    
+    // USUÁRIOS
     Route::resource('users', UserController::class)->names('users');
     Route::get('users-pending', [UserController::class, 'approvationUser'])->name('users.pending');
     
@@ -31,6 +34,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //PESQUISAS
     Route::post('harvest/search', [SearchController::class, 'harvestSearch'])->name('harvest.search');
+
+    //NOTIFICAÇÕES
+    Route::get('notifications/read/{id}', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::get('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 });
 
 Route::middleware('auth')->group(function () {
