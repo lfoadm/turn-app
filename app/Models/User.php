@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ACL\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,5 +47,30 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // ACL
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function hasPermission($permission)
+    {
+        // Carregando as roles e suas permissões para evitar múltiplas queries
+        $this->load('roles.permissions');
+
+        foreach ($this->roles as $role) {
+            if ($role->permissions->where('name', $permission)->count()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
