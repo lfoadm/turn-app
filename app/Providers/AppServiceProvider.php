@@ -25,7 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::policy(Role::class, RolePolicy::class);
-        
+        Gate::before(function(User $user, $permission) {
+            if($user->permissions()->contains($permission)) {
+                return true;
+            };
+        });
     }
 }

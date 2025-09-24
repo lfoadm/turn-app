@@ -19,14 +19,19 @@ class RolePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Role $role): bool
+    public function index(User $user, Role $role): bool
     {
-        return $user->hasPermission('role.view');
+        return $user->hasPermission('role.index');
     }
 
     public function create(User $user): bool
     {
         return $user->hasPermission('role.create');
+    }
+
+    public function show(User $user): bool
+    {
+        return $user->hasPermission('role.show');
     }
 
     /**

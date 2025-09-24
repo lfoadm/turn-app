@@ -14,31 +14,31 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         Permission::factory()->create([
-            'name' => 'INDEX_GROUP',
+            'name' => 'role.index',
         ]);
 
         Permission::factory()->create([
-            'name' => 'CREATE_GROUP',
+            'name' => 'role.create',
         ]);
 
         Permission::factory()->create([
-            'name' => 'STORE_GROUP',
+            'name' => 'role.store',
         ]);
 
         Permission::factory()->create([
-            'name' => 'SHOW_GROUP',
+            'name' => 'role.show',
         ]);
 
         Permission::factory()->create([
-            'name' => 'EDIT_GROUP',
+            'name' => 'role.edit',
         ]);
 
         Permission::factory()->create([
-            'name' => 'UPDATE_GROUP',
+            'name' => 'role.update',
         ]);
 
         Permission::factory()->create([
-            'name' => 'DESTROY_GROUP',
+            'name' => 'role.destroy',
         ]);
     }
 }

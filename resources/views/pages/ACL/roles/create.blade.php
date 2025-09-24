@@ -35,13 +35,8 @@
                         <!-- Campo Nome -->
                         <div>
                             <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" name="name" type="text"
-                                placeholder="Nome do grupo" value="{{ old('name') }}" required
-                                autofocus
-                                class="mt-1 block w-full rounded-xl border border-gray-900 shadow-sm
-                                        focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50
-                                        dark:bg-gray-800 dark:border-gray-400 dark:text-white dark:placeholder-gray-400
-                                        transition h-11 px-4 text-sm" />
+                            <x-text-input id="name" name="name" type="text" placeholder="Nome do grupo" value="{{ old('name') }}" required autofocus
+                                class="mt-1 block w-full rounded-xl border border-gray-900 shadow-sm focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-400 dark:text-white dark:placeholder-gray-400 transition h-11 px-4 text-sm" />
                         </div>
 
                         <!-- Botões -->

@@ -158,7 +158,8 @@
                                     
                                     <div class="col-span-1 flex items-center justify-center px-4 py-3 gap-2">
                                         <!-- Botão Editar -->
-                                        <a :href="`/users/${person.id}/edit`"
+                                        <a 
+                                            :href="`{{ route('users.edit', ':id') }}`.replace(':id', person.id)"
                                             class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
                                             <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">

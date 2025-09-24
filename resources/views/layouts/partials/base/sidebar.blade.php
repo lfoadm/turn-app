@@ -240,6 +240,7 @@
               </ul>
             </div>
 
+            @can('role.index')
             <div class="overflow-hidden transform translate" :class="(selected === 'Usuários') ? 'block' :'hidden'">
               <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
                 <li>
@@ -249,6 +250,7 @@
                 </li>
               </ul>
             </div>
+            @endcan
 
             <!-- Dropdown Menu End -->
           </li>
