@@ -55,25 +55,31 @@
 
                             <!-- Table Header -->
                             <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-800">
-                                <div class="col-span-4 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
-                                    @click="sortBy('name')">
-                                    <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Título</p>
+                                <div class="col-span-1 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
+                                    @click="sortBy('id')">
+                                    <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">ID</p>
                                     <span class="flex flex-col gap-0.5">
-                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5"
-                                            viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"
-                                                fill=""></path>
+                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z" fill=""></path>
                                         </svg>
-                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5"
-                                            viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"
-                                                fill=""></path>
+                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z" fill=""></path>
                                         </svg>
                                     </span>
                                 </div>
-                                <div class="col-span-4 flex items-center justify-center px-4 py-3">
+                                <div class="col-span-8 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
+                                    @click="sortBy('name')">
+                                    <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Título</p>
+                                    <span class="flex flex-col gap-0.5">
+                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z" fill=""></path>
+                                        </svg>
+                                        <svg class="fill-gray-600 dark:fill-gray-200" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z" fill=""></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="col-span-3 flex items-center justify-center px-4 py-3">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Ações</p>
                                 </div>
                             </div>
@@ -81,24 +87,28 @@
                             <!-- Table Body -->
                             <template x-for="person in paginatedData" :key="person.id">
                                 <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800">
-                                    <div class="col-span-4 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
+                                    <div class="col-span-1 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
+                                        <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.id"></span>
+                                    </div>
+                                    <div class="col-span-8 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.name"></span>
                                     </div>
-                                    <div class="col-span-4 flex items-center justify-center px-4 py-3 gap-2">
+                                    <div class="col-span-3 flex items-center justify-center px-4 py-3 gap-2">
                                         <!-- Botão Ver -->
-                                        <a :href="`/acl/roles/${person.id}`" class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
+                                        <a
+                                            :href="`{{ route('roles.show', ':id') }}`.replace(':id', person.id)"
+                                            class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                             </svg>
 
                                         </a>
                                         <!-- Botão Editar -->
-                                        <a :href="`/roles/${person.id}/edit`" class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
-                                            <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M17.0911 3.53206C16.2124 2.65338 14.7878 2.65338 13.9091 3.53206L5.6074 11.8337C5.29899 12.1421 5.08687 12.5335 4.99684 12.9603L4.26177 16.445C4.20943 16.6931 4.286 16.9508 4.46529 17.1301C4.64458 17.3094 4.90232 17.3859 5.15042 17.3336L8.63507 16.5985C9.06184 16.5085 9.45324 16.2964 9.76165 15.988L18.0633 7.68631C18.942 6.80763 18.942 5.38301 18.0633 4.50433L17.0911 3.53206ZM14.9697 4.59272C15.2626 4.29982 15.7375 4.29982 16.0304 4.59272L17.0027 5.56499C17.2956 5.85788 17.2956 6.33276 17.0027 6.62565L16.1043 7.52402L14.0714 5.49109L14.9697 4.59272ZM13.0107 6.55175L6.66806 12.8944C6.56526 12.9972 6.49455 13.1277 6.46454 13.2699L5.96704 15.6283L8.32547 15.1308C8.46772 15.1008 8.59819 15.0301 8.70099 14.9273L15.0436 8.58468L13.0107 6.55175Z"
-                                                    fill=""></path>
+                                        <a 
+                                            :href="`{{ route('roles.edit', ':id') }}`.replace(':id', person.id)"
+                                            class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
+                                            <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0911 3.53206C16.2124 2.65338 14.7878 2.65338 13.9091 3.53206L5.6074 11.8337C5.29899 12.1421 5.08687 12.5335 4.99684 12.9603L4.26177 16.445C4.20943 16.6931 4.286 16.9508 4.46529 17.1301C4.64458 17.3094 4.90232 17.3859 5.15042 17.3336L8.63507 16.5985C9.06184 16.5085 9.45324 16.2964 9.76165 15.988L18.0633 7.68631C18.942 6.80763 18.942 5.38301 18.0633 4.50433L17.0911 3.53206ZM14.9697 4.59272C15.2626 4.29982 15.7375 4.29982 16.0304 4.59272L17.0027 5.56499C17.2956 5.85788 17.2956 6.33276 17.0027 6.62565L16.1043 7.52402L14.0714 5.49109L14.9697 4.59272ZM13.0107 6.55175L6.66806 12.8944C6.56526 12.9972 6.49455 13.1277 6.46454 13.2699L5.96704 15.6283L8.32547 15.1308C8.46772 15.1008 8.59819 15.0301 8.70099 14.9273L15.0436 8.58468L13.0107 6.55175Z" fill=""></path>
                                             </svg>
                                         </a>
                                     </div>
@@ -163,7 +173,7 @@
         function dataTable() {
             return {
                 search: "",
-                sortColumn: "name",
+                sortColumn: "id",
                 sortDirection: "asc",
                 currentPage: 1,
                 perPage: 9, // default inicial igual ao select

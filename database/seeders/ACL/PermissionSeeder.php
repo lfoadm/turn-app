@@ -13,32 +13,84 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::factory()->create([
-            'name' => 'role.index',
-        ]);
+        $permissions = [
+            'role.index',
+            'role.create',
+            'role.store',
+            'role.show',
+            'role.edit',
+            'role.update',
+            'role.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.create',
-        ]);
+            'user.index',
+            'user.create',
+            'user.store',
+            'user.show',
+            'user.edit',
+            'user.update',
+            'user.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.store',
-        ]);
+            'harvest.index',
+            'harvest.create',
+            'harvest.store',
+            'harvest.show',
+            'harvest.edit',
+            'harvest.update',
+            'harvest.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.show',
-        ]);
+            'port.index',
+            'port.create',
+            'port.store',
+            'port.show',
+            'port.edit',
+            'port.update',
+            'port.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.edit',
-        ]);
+            'permission.index',
+            'permission.create',
+            'permission.store',
+            'permission.show',
+            'permission.edit',
+            'permission.update',
+            'permission.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.update',
-        ]);
+            'reason.index',
+            'reason.create',
+            'reason.store',
+            'reason.show',
+            'reason.edit',
+            'reason.update',
+            'reason.destroy',
 
-        Permission::factory()->create([
-            'name' => 'role.destroy',
-        ]);
+            'docking.index',
+            'docking.create',
+            'docking.store',
+            'docking.show',
+            'docking.edit',
+            'docking.update',
+            'docking.destroy',
+
+            'stop.index',
+            'stop.create',
+            'stop.store',
+            'stop.show',
+            'stop.edit',
+            'stop.update',
+            'stop.destroy',
+
+            'notification.index',
+            'notification.create',
+            'notification.store',
+            'notification.show',
+            'notification.edit',
+            'notification.update',
+            'notification.destroy',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::factory()->create([
+                'name' => $permission,
+            ]);
+        }
     }
 }

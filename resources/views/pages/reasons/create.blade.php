@@ -52,9 +52,7 @@
 
                                 <input type="hidden" name="purge" value="0">
 
-                                <input type="checkbox" id="purge" name="purge" value="1"
-                                    class="sr-only peer"
-                                    x-model="active">
+                                <input type="checkbox" id="purge" name="purge" value="1" class="sr-only peer" x-model="active">
 
                                 <div class="w-12 h-6 bg-gray-300 rounded-full peer
                                     peer-checked:bg-cyan-600

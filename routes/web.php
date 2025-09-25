@@ -60,30 +60,38 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('read/{id}', [NotificationController::class, 'read'])->name('read');
             Route::get('mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
         });
+        
+        
+        // PERFIL
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+            Route::patch('/', [ProfileController::class, 'update'])->name('update');
+            Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+        });
+    
+        // ACL
+        Route::prefix('acl')->group(function () {
+    
+            // GRUPOS (ROLES)
+            // Route::resource('roles', RoleController::class)->names('roles');
+
+            Route::get('roles', [RoleController::class, 'index'])->name('roles.index')->middleware('can:role.index');
+            Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create')->middleware('can:role.create');
+            Route::post('roles', [RoleController::class, 'store'])->name('roles.store')->middleware('can:role.store');
+            Route::get('roles/{role}', [RoleController::class, 'show'])->name('roles.show')->middleware('can:role.show');
+            Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:role.edit');
+            Route::put('roles/{role}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:role.update');
+            Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy')->middleware('can:role.destroy');
+
+            Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
+    
+            // PERMISSÕES
+            Route::resource('permissions', PermissionController::class)->names('permissions');
+        });
+        
     });
 });
 
 
-// ROTAS AUTENTICADAS (sem verificação de email obrigatório)
-Route::middleware('auth')->group(function () {
-
-    // PERFIL
-    Route::prefix('profile')->name('profile.')->group(function () {
-        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-        Route::patch('/', [ProfileController::class, 'update'])->name('update');
-        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
-    });
-
-    // ACL
-    Route::prefix('acl')->group(function () {
-
-        // GRUPOS (ROLES)
-        Route::resource('roles', RoleController::class)->names('roles');
-        Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
-
-        // PERMISSÕES
-        Route::resource('permissions', PermissionController::class)->names('permissions');
-    });
-});
 
 require __DIR__ . '/auth.php';

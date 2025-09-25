@@ -3,14 +3,24 @@
 namespace App\Http\Controllers\ACL;
 
 use App\Http\Controllers\Controller;
+use App\Models\ACL\Permission;
 use App\Models\ACL\Role;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
+    protected $permissionService;
+
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
+
     public function index()
     {
-        $roles = Role::latest()->get();
+        $roles = Role::orderBy('id', 'DESC')->get();
 
         // Transforma em array pronto para o front
         $rolesJson = $roles->map(fn($h) => [
@@ -43,17 +53,14 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::with('permissions')->findOrFail($id);
-
         $permissionsCount = $role->permissions->count();
 
-        // Agrupa todas as permissões cadastradas no sistema por Policy
-        $permissionsByPolicy = \App\Models\ACL\Permission::all()->groupBy('policy');
+        $data = $this->permissionService->getPermissionsGroupedByModel();
 
-        return view('pages.ACL.roles.show', [
+        return view('pages.ACL.roles.show', array_merge($data, [
             'role' => $role,
             'permissionsCount' => $permissionsCount,
-            'permissionsByPolicy' => $permissionsByPolicy,
-        ]);
+        ]));
     }
 
     public function updatePermissions(Request $request, Role $role)
