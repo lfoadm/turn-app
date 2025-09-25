@@ -50,10 +50,12 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
 
+        $admins = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['ADMIN', 'SUPER ADMIN']);
+        })->get();
+
         // 🔔 Envia notificação para os administradores
-        // $admins = User::where('is_admin', true)->get(); 
-        $users = User::all();
-        Notification::send($users, new NewUserRegistered($user));
+        Notification::send($admins, new NewUserRegistered($user));
 
         return redirect(route('dashboard', absolute: false));
     }

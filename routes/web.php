@@ -71,10 +71,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
         // ACL
         Route::prefix('acl')->group(function () {
-    
-            // GRUPOS (ROLES)
-            // Route::resource('roles', RoleController::class)->names('roles');
-
             Route::get('roles', [RoleController::class, 'index'])->name('roles.index')->middleware('can:role.index');
             Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create')->middleware('can:role.create');
             Route::post('roles', [RoleController::class, 'store'])->name('roles.store')->middleware('can:role.store');
@@ -82,11 +78,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit')->middleware('can:role.edit');
             Route::put('roles/{role}', [RoleController::class, 'update'])->name('roles.update')->middleware('can:role.update');
             Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy')->middleware('can:role.destroy');
-
             Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
     
-            // PERMISSÕES
+        // PERMISSÕES
             Route::resource('permissions', PermissionController::class)->names('permissions');
+
+            
         });
         
     });

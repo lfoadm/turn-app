@@ -9,7 +9,7 @@
         <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
             <!-- Cabeçalho com título e botão Novo -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between my-4 px-4" x-data="{
-                buttonText: '+ Grupo',
+                buttonText: '+ Grupo de usuários',
                 buttonRoute: '{{ route('roles.create') }}',
             }">
                 <div class="flex">
@@ -54,7 +54,7 @@
                         <div class="min-w-[600px]">
 
                             <!-- Table Header -->
-                            <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-800">
+                            <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-600">
                                 <div class="col-span-1 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
                                     @click="sortBy('id')">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">ID</p>
@@ -67,7 +67,7 @@
                                         </svg>
                                     </span>
                                 </div>
-                                <div class="col-span-8 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
+                                <div class="col-span-6 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
                                     @click="sortBy('name')">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Título</p>
                                     <span class="flex flex-col gap-0.5">
@@ -79,6 +79,9 @@
                                         </svg>
                                     </span>
                                 </div>
+                                <div class="col-span-2 flex items-center justify-center px-4 py-3">
+                                    <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Qtde. Usuários</p>
+                                </div>
                                 <div class="col-span-3 flex items-center justify-center px-4 py-3">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Ações</p>
                                 </div>
@@ -86,12 +89,15 @@
 
                             <!-- Table Body -->
                             <template x-for="person in paginatedData" :key="person.id">
-                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800">
+                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     <div class="col-span-1 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.id"></span>
                                     </div>
-                                    <div class="col-span-8 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
+                                    <div class="col-span-6 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.name"></span>
+                                    </div>
+                                    <div class="col-span-2 flex justify-center items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
+                                        <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.users_count"></span>
                                     </div>
                                     <div class="col-span-3 flex items-center justify-center px-4 py-3 gap-2">
                                         <!-- Botão Ver -->
@@ -182,7 +188,8 @@
                 get filteredData() {
                     const searchLower = this.search.toLowerCase();
                     return this.data.filter(person =>
-                        person.name.toLowerCase().includes(searchLower)
+                        person.name.toLowerCase().includes(searchLower) ||
+                        person.users_count.toLowerCase().includes(searchLower)
                     ).sort((a, b) => {
                         let modifier = this.sortDirection === "asc" ? 1 : -1;
                         if (a[this.sortColumn] < b[this.sortColumn]) return -1 * modifier;

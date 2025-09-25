@@ -24,18 +24,6 @@
                             <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                         </div>
 
-                        {{-- <div class="sm:col-span-1">
-                            <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                Sobrenome <span class="text-error-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                id="lastname"
-                                name="lastname"
-                                placeholder="Sobrenome completo"
-                                class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                            />
-                        </div> --}}
                     </div>
 
                     <div class="mt-4" x-data>
@@ -50,19 +38,6 @@
                         <x-text-input placeholder="Informe seu e-mail" id="email" class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" type="email" name="email" :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
-                    
-                    {{-- <div>
-                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            E-mail <span class="text-error-500">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Informe seu e-mail"
-                            class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                        />
-                    </div> --}}
                     
                     <!-- Password -->
                     <div>
@@ -160,52 +135,62 @@
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
 
-                    <!-- Checkbox -->
-                    <div>
-                        <div x-data="{ checkboxToggle: false }">
-                            <label for="checkboxLabelOne" class="flex items-start text-sm font-normal text-gray-700 cursor-pointer select-none dark:text-gray-400">
-                                <div class="relative">
-                                    <input
-                                        type="checkbox"
-                                        id="checkboxLabelOne"
-                                        class="sr-only"
-                                        @change="checkboxToggle = !checkboxToggle"
-                                    />
-                                    <div
-                                        :class="checkboxToggle ? 'border-cyan-500 bg-cyan-500' : 'bg-transparent border-gray-300 dark:border-gray-400'"
-                                        class="mr-3 flex h-5 w-5 items-center justify-center rounded-md border-[1.25px]"
-                                    >
-                                    <span :class="checkboxToggle ? '' : 'opacity-0'">
+                    <!-- Checkbox + botão controlados por Alpine -->
+                    <div x-data="{ accepted: false }">
+                        <!-- Checkbox -->
+                        <label for="terms" class="flex items-start text-sm font-normal text-gray-700 cursor-pointer select-none dark:text-gray-400">
+                            <div class="relative">
+                                <input
+                                    type="checkbox"
+                                    id="terms"
+                                    class="sr-only"
+                                    x-model="accepted"
+                                />
+                                <div
+                                    :class="accepted ? 'border-cyan-500 bg-cyan-500' : 'bg-transparent border-gray-300 dark:border-gray-400'"
+                                    class="mr-3 flex h-5 w-5 items-center justify-center rounded-md border-[1.25px]"
+                                >
+                                    <span :class="accepted ? '' : 'opacity-0'">
                                         <svg
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 14 14"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 14 14"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
                                         >
-                                        <path
-                                            d="M11.6666 3.5L5.24992 9.91667L2.33325 7"
-                                            stroke="white"
-                                            stroke-width="1.94437"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
+                                            <path
+                                                d="M11.6666 3.5L5.24992 9.91667L2.33325 7"
+                                                stroke="white"
+                                                stroke-width="1.94437"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
                                         </svg>
                                     </span>
-                                    </div>
                                 </div>
-                                <p class="inline-block font-normal text-gray-500 dark:text-gray-400">Ao criar uma conta significa que você concorda com
-                                    <span class="text-gray-800 dark:text-white/90">Termos e Condições,</span>e nossa<span class="text-gray-800 dark:text-white">Política de Privacidade</span>
-                                </p>
-                            </label>
+                            </div>
+                            <p class="inline-block font-normal text-gray-500 dark:text-gray-400">
+                                Ao criar uma conta significa que você concorda com
+                                <span class="text-gray-800 dark:text-white/90">Termos e Condições</span>, e nossa 
+                                <span class="text-gray-800 dark:text-white">Política de Privacidade</span>
+                            </p>
+                        </label>
+
+                        <!-- Botão -->
+                        <div class="mt-4">
+                            <button
+                                type="submit"
+                                :disabled="!accepted"
+                                :class="!accepted 
+                                    ? 'bg-gray-400 cursor-not-allowed' 
+                                    : 'bg-cyan-500 hover:bg-cyan-600'"
+                                class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg shadow-theme-xs"
+                            >
+                                {{ __('Sign up') }}
+                            </button>
                         </div>
                     </div>
-                    <!-- Button -->
-                    <div>
-                        <button class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-cyan-500 shadow-theme-xs hover:bg-cyan-600">
-                            Sign Up
-                        </button>
-                    </div>
+
                 </div>
             </form>
             <div class="mt-5">

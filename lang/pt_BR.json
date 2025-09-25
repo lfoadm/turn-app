@@ -115,7 +115,6 @@
   "Regards,": "Saudações,",
   "Regenerate Recovery Codes": "Gerar novamente os códigos de recuperação",
   "Register": "Registre-se",
-  "Sign up": "Registrar-se",
   "Remember Me": "Manter conectado",
   "Remember me": "Manter conectado",
   "Remove": "Remover",
@@ -206,7 +205,9 @@
   "Title": "Título",
   "Description": "Descrição",
   "Purge?": "Expurga?",
-  "Back": "Voltar"
+  "Back": "Voltar",
+  "Sign up": "Registrar",
+  "Sign in": "Entrar"
 
 
 }

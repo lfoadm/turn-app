@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ACL\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,19 +34,22 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('pages.users.edit', compact('user'));
+        $roles = Role::all();
+        $userRoleId = $user->roles()->pluck('id')->first(); // pega o primeiro id da role associada
+
+        return view('pages.users.edit', compact('user', 'roles', 'userRoleId'));
     }
 
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'role' => 'required|in:admin,manager,user',
+            'role' => 'required|exists:roles,id',
         ]);
 
-        $user->role = $request->role;
-        $user->save();
+        // Atualiza a relação many-to-many na tabela pivot role_user
+        $user->roles()->sync([$request->role]);
 
-        return redirect()->route('users.index')->with('success', 'Usuário aprovado com sucesso.');
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function approvationUser()

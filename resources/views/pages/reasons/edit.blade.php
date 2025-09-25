@@ -81,7 +81,7 @@
 <x-app-layout>
     <div class="mx-auto max-w-[1440px] p-4 md:p-6">
         <!-- Breadcrumb / Título -->
-        <div x-data="{ pageName: `Editando a safra` }" class="px-3 py-2">
+        <div x-data="{ pageName: `Editando motivo` }" class="px-3 py-2">
             @include('layouts.partials.base.breadcrumb')
         </div>
 

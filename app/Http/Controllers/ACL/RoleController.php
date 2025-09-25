@@ -20,12 +20,13 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::orderBy('id', 'DESC')->get();
+        $roles = Role::withCount('users')->orderBy('id', 'DESC')->get();
 
         // Transforma em array pronto para o front
         $rolesJson = $roles->map(fn($h) => [
             'id'        => $h->id,
             'name'     => $h->name,
+            'users_count' => $h->users_count, // quantidade de usuários
         ]);
 
         return view('pages.ACL.roles.index', [
@@ -61,6 +62,22 @@ class RoleController extends Controller
             'role' => $role,
             'permissionsCount' => $permissionsCount,
         ]));
+    }
+
+    public function edit(Role $role)
+    {
+        return view('pages.ACL.roles.edit', compact('role'));
+    }
+
+    public function update(Request $request, Role $role)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $role->update($validated);
+
+        return redirect()->route('roles.index')->with('success', 'Grupo de usuários atualizado com sucesso.');
     }
 
     public function updatePermissions(Request $request, Role $role)

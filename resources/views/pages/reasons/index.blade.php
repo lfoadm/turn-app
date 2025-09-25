@@ -120,7 +120,7 @@
                         <div class="min-w-[600px]">
 
                             <!-- Table Header -->
-                            <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-800">
+                            <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-600">
                                 <div class="col-span-4 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer" @click="sortBy('title')">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Título</p>
                                     <span class="flex flex-col gap-0.5">
@@ -150,7 +150,7 @@
 
                             <!-- Table Body -->
                             <template x-for="person in paginatedData" :key="person.id">
-                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800">
+                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     <div class="col-span-4 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.title"></span>
                                     </div>
