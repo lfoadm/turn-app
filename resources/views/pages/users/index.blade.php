@@ -153,7 +153,12 @@
                                     </div>
 
                                     <div class="col-span-1 flex items-center px-4 py-3">
-                                        <span class="text-theme-xs block font-xs text-gray-800 dark:text-white/90">funcao</span>
+                                        <span
+                                            x-text="person.role || 'PENDENTE'" 
+                                            :class="person.role ? 'text-gray-800 dark:text-white/90' : 'text-red-500 bg-amber-200 rounded-md px-2 py-1'"
+                                            class="text-theme-xs block font-xs"
+                                        >
+                                        </span>
                                     </div>
                                     
                                     <div class="col-span-1 flex items-center justify-center px-4 py-3 gap-2">
@@ -243,6 +248,7 @@
                         person.firstname.toLowerCase().includes(searchLower) ||
                         person.lastname.toLowerCase().includes(searchLower) ||
                         person.phone.toLowerCase().includes(searchLower) ||
+                        person.role.toLowerCase().includes(searchLower) ||
                         person.email.toLowerCase().includes(searchLower)
 
                     ).sort((a, b) => {

@@ -10,11 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        // $usersPending = User::where('role', 'new')->get();
-        // $users = User::paginate(10);
-        // return view('pages.users.index', compact('users'));
-
-        $users = User::latest()->get();
+        $users = User::with('roles')->get();
 
         // Transforma em array pronto para o front
         $usersJson = $users->map(fn($h) => [
@@ -23,7 +19,11 @@ class UserController extends Controller
             'lastname'      => $h->lastname,
             'phone'         => $h->phone,
             'email'         => $h->email,
+            'role'          => $h->roles->first()?->name,
         ]);
+
+        // dd($usersJson);
+
 
         return view('pages.users.index', [
             'users'     => $users,
@@ -62,6 +62,7 @@ class UserController extends Controller
             'lastname'      => $h->lastname,
             'phone'         => $h->phone,
             'email'         => $h->email,
+            'role'          =>$h->roles->name,
         ]);
 
         return view('pages.users.pending', [
