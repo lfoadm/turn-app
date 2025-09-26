@@ -25,16 +25,17 @@
 
         <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
             <h5 class="text-lg font-semibold text-gray-800 dark:text-white">Notificações</h5>
-            <a href="{{ route('notifications.markAllAsRead') }}"
-                class="text-sm text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-500">Marcar
-                todas como lidas</a>
+            @if ($notificationsCount = auth()->user()->unreadNotifications->count() > 0)
+            <a href="{{ route('notifications.markAllAsRead') }}"class="text-sm text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-500">
+                Marcar todas como lidas
+            </a>
+            @endif
         </div>
 
         <ul class="max-h-96 overflow-y-auto custom-scrollbar">
             @forelse(auth()->user()->notifications as $notification)
-                <li
-                    class="p-2 border-b border-gray-100 dark:border-gray-700 {{ $notification->read_at ? 'opacity-75' : 'bg-cyan-50 dark:bg-cyan-900' }}">
-                    <a href="{{ $notification->read_at ? '#' : route('notifications.read', $notification->id) }}"
+                <li class="p-2 border-b border-gray-100 dark:border-gray-700 {{ $notification->read_at ? 'opacity-75' : 'bg-cyan-50 dark:bg-cyan-900' }}">
+                    <a href="{{ $notification->read_at ? route('users.pending') : route('notifications.read', $notification->id) }}"
                         class="flex items-start gap-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                         <span
                             class="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0 {{ $notification->read_at ? 'bg-gray-200 dark:bg-gray-700' : 'bg-cyan-500 dark:bg-cyan-600 text-white' }}">

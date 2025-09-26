@@ -54,19 +54,17 @@ class UserController extends Controller
 
     public function approvationUser()
     {
-        // $usersPending = User::all();
-        // return view('pages.users.pending', compact( 'usersPending'));
-
-        $users = User::latest()->get();
+        // Busca apenas usuários sem role vinculada
+        $users = User::doesntHave('roles')->get();
 
         // Transforma em array pronto para o front
         $usersJson = $users->map(fn($h) => [
             'id'        => $h->id,
-            'firstname'     => $h->firstname,
-            'lastname'      => $h->lastname,
-            'phone'         => $h->phone,
-            'email'         => $h->email,
-            'role'          =>$h->roles->name,
+            'firstname' => $h->firstname,
+            'lastname'  => $h->lastname,
+            'phone'     => $h->phone,
+            'email'     => $h->email,
+            'role'      => $h->roles->first()?->name, // vai ficar null mesmo, já que não tem role
         ]);
 
         return view('pages.users.pending', [

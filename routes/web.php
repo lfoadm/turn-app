@@ -61,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('notifications')->name('notifications.')->group(function () {
             Route::get('read/{id}', [NotificationController::class, 'read'])->name('read');
             Route::get('mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
+            
         });
         
         

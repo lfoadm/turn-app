@@ -16,7 +16,7 @@ class NotificationController extends Controller
         $notification->markAsRead();
 
         // Redireciona para a rota de usuários pendentes
-        return redirect()->route('users.pending');
+        return redirect()->route('users.pending', compact('users'));
     }
 
     public function markAllAsRead()
