@@ -23,8 +23,23 @@ class User extends Authenticatable implements MustVerifyEmail
         'lastname',
         'phone',
         'email',
+        'otp_code',
         'password',
     ];
+
+    public static  function generateOTP($length = 6) {
+        // Gera o código de 6 dígitos randomicos otp para verificação de e-mail
+        if ($length <= 0) {
+            return '';
+        }
+            
+        $otp = '';
+        for ($i = 0; $i < $length; $i++) {
+            $otp .= mt_rand(0, 9);
+        }
+    
+        return $otp;
+    }
 
     /**
      * The attributes that should be hidden for serialization.

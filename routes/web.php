@@ -10,8 +10,10 @@ use App\Http\Controllers\Admin\ReasonController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\StopController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\OtpVerificationController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProfileController;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 // PÚBLICA
@@ -82,13 +84,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
         // PERMISSÕES
             Route::resource('permissions', PermissionController::class)->names('permissions');
-
             
         });
         
     });
 });
 
-
+//VERIFY-OTP
+Route::post('/email/verify/otp', [OtpVerificationController::class, 'verify'])->name('verification.otp.verify');
+Route::post('/email/verify/otp/resend', [OtpVerificationController::class, 'resend'])->name('verification.otp.resend');
 
 require __DIR__ . '/auth.php';

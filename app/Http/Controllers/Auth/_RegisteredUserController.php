@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\Auth\UserRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\NewUserRegistered;
@@ -37,22 +36,18 @@ class RegisteredUserController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:15'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password' => ['required', 'confirmed'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-        $otp_code = User::generateOTP();        
 
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'phone' => $request->phone,
             'email' => $request->email,
-            'otp_code' => $otp_code,
             'password' => Hash::make($request->password),
         ]);
 
-        UserRegisteredEvent::dispatch($user);
+        event(new Registered($user));
         Auth::login($user);
 
         $admins = User::whereHas('roles', function ($q) {
