@@ -87,7 +87,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('permissions', PermissionController::class)->names('permissions');
             
         });
-        
     });
 });
 

@@ -41,7 +41,7 @@ class UserRegisteredMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'auth.email-verify',
+            view: 'emails.email-verify',
             with:['user' => $this->user]
         );
     }

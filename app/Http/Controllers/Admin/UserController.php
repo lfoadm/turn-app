@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\NewUser\UserCreateEvent;
 use App\Http\Controllers\Controller;
+use App\Mail\NewUser\UserCreateMail;
 use App\Models\ACL\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -71,5 +76,41 @@ class UserController extends Controller
             'users'     => $users,
             'usersJson' => $usersJson,
         ]);
+    }
+
+    public function create()
+    {
+        $roles = Role::all();
+        return view('pages.users.create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname'  => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'phone'     => 'nullable|string|max:20',
+            'role_id'   => 'required|exists:roles,id',
+        ]);
+        
+        // 🔑 Gerar senha temporária
+        $temporaryPassword = Str::random(8);
+        
+        // Criar usuário
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'lastname'  => $request->lastname,
+            'email'     => $request->email,
+            'phone'     => $request->phone,
+            'password'  => Hash::make($temporaryPassword),
+        ]);
+        
+        // Vincular role
+        $user->roles()->attach($request->role_id);
+
+        UserCreateEvent::dispatch($user, $temporaryPassword);
+        
+        return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso e senha temporária enviada.');
     }
 }
