@@ -32,55 +32,5 @@ class HarvestSeeder extends Seeder
             'title' => '2025/26',
             'is_active' => 1,
         ]);
-
-        Harvest::factory()->create([
-            'title' => '2026/27',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2027/28',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2028/29',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2029/30',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2030/31',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2031/32',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2032/33',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2033/34',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2034/35',
-            'is_active' => 0,
-        ]);
-
-        Harvest::factory()->create([
-            'title' => '2035/36',
-            'is_active' => 0,
-        ]);
     }
 }
