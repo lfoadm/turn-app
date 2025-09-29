@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             HarvestSeeder::class,
             PortSeeder::class,
             ReasonSeeder::class,
-            // DockingSeeder::class,
+            DockingSeeder::class,
             // StopSeeder::class,
             RoleSeeder::class,
             PermissionSeeder::class,

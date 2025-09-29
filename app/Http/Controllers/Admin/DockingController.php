@@ -22,42 +22,82 @@ class DockingController extends Controller
 
     public function index(Request $request)
     {
-        $currencyHarvest = Harvest::where('is_active', true)->first();
-        $query = Docking::with('port');
+        // $currencyHarvest = Harvest::where('is_active', true)->first();
+        // $query = Docking::with('port');
 
-        // Filtro por data
-        if ($request->filled('start_date') && $request->filled('end_date')) {
-            $query->whereBetween('hora_encoste', [
-                $request->start_date . ' 00:00:00',
-                $request->end_date . ' 23:59:59'
-            ]);
-        } elseif ($request->filled('start_date')) {
-            $query->whereDate('hora_encoste', '>=', $request->start_date);
-        } elseif ($request->filled('end_date')) {
-            $query->whereDate('hora_encoste', '<=', $request->end_date);
-        }
+        // // Filtro por data
+        // if ($request->filled('start_date') && $request->filled('end_date')) {
+        //     $query->whereBetween('hora_encoste', [
+        //         $request->start_date . ' 00:00:00',
+        //         $request->end_date . ' 23:59:59'
+        //     ]);
+        // } elseif ($request->filled('start_date')) {
+        //     $query->whereDate('hora_encoste', '>=', $request->start_date);
+        // } elseif ($request->filled('end_date')) {
+        //     $query->whereDate('hora_encoste', '<=', $request->end_date);
+        // }
 
-        // Clona a query para não perder os filtros
-        $dockingsQuery = clone $query;
+        // // Clona a query para não perder os filtros
+        // $dockingsQuery = clone $query;
 
-        // Indicadores
-        $dockingsCount = $dockingsQuery->count();
-        $sumCoruripe   = $dockingsQuery->sum('peso_proprio');     // volume coruripe
-        $sumRumo       = $dockingsQuery->sum('peso_terceiros');   // volume rumo
-        $sumTotal      = $sumCoruripe + $sumRumo;     // volume total carregado
+        // // Indicadores
+        // $dockingsCount = $dockingsQuery->count();
+        // $sumCoruripe   = $dockingsQuery->sum('peso_proprio');     // volume coruripe
+        // $sumRumo       = $dockingsQuery->sum('peso_terceiros');   // volume rumo
+        // $sumTotal      = $sumCoruripe + $sumRumo;     // volume total carregado
 
-        // Paginação
-        $dockings = $query->orderBy('hora_encoste', 'desc')->paginate(50)->withQueryString();
+        // // Paginação
+        // $dockings = $query->orderBy('hora_encoste', 'desc')->paginate(50)->withQueryString();
 
-        return view('pages.dockings.index', compact(
-            'dockings',
-            'dockingsCount',
-            'currencyHarvest',
-            'sumCoruripe',
-            'sumRumo',
-            'sumTotal'
-        ));
+        // return view('pages.dockings.index', compact(
+        //     'dockings',
+        //     'dockingsCount',
+        //     'currencyHarvest',
+        //     'sumCoruripe',
+        //     'sumRumo',
+        //     'sumTotal'
+        // ));
+
+        $dockings = Docking::latest()->get();
+
+        // Transforma em array pronto para o front
+        $dockingsJson = $dockings->map(fn($h) => [
+            'id'                            => $h->id,
+            'port_id'                       => $h->port_id,
+            'user_id'                       => $h->user_id,
+            'harvest_id'                    => $h->harvest_id,
+            'numero_encoste'                => $h->numero_encoste,
+            'hora_encoste'                  => $h->hora_encoste,
+            'situacao_vagoes'               => $h->situacao_vagoes,
+            'qtd_vagoes_total'              => $h->qtd_vagoes_total,
+            'qtd_vagoes_carregados'         => $h->qtd_vagoes_carregados,
+            'qtd_vagoes_recusados'          => $h->qtd_vagoes_recusados,
+            'qtd_vagoes_abertos'            => $h->qtd_vagoes_abertos,
+            'hora_inicio_carga'             => $h->hora_inicio_carga,
+            'hora_fim_carga'                => $h->hora_fim_carga,
+            'hora_partida'                  => $h->hora_partida,
+            'peso_proprio'                  => $h->peso_proprio,
+            'peso_terceiros'                => $h->peso_terceiros,
+            'prefixo_chegada'               => $h->prefixo_chegada,
+            'prefixo_saida'                 => $h->prefixo_saida,
+            'os_partida_rumo'               => $h->os_partida_rumo,
+            'registro_transporte_coruripe'  => $h->registro_transporte_coruripe,
+            'registro_transporte_terceiros' => $h->registro_transporte_terceiros,
+
+        ]);
+
+        return view('pages.dockings.index', [
+            'dockings'     => $dockings,
+            'dockingsJson' => $dockingsJson,
+        ]);
+
     }
+
+
+            
+
+
+
 
     public function create()
     {

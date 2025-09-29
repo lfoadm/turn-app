@@ -170,6 +170,70 @@
             <!-- Dropdown Menu End -->
           </li>
           <!-- Menu Item Cadastros -->
+
+          <!-- Menu Item Operação -->
+          <li>
+            <a
+              href="#"
+              @click.prevent="selected = (selected === 'Operação' ? '':'Operação')"
+              class="menu-item group"
+              :class=" (selected === 'Operação') || (page === 'dockings' || page === 'stops') ? 'menu-item-active' : 'menu-item-inactive'"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                :class="(selected === 'Operação') || (page === 'dockings' || page === 'stops') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
+                
+              >
+                <path d="M2 17 17 2"/><path d="m2 14 8 8"/><path d="m5 11 8 8"/><path d="m8 8 8 8"/><path d="m11 5 8 8"/><path d="m14 2 8 8"/><path d="M7 22 22 7"/>
+              </svg>
+              
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Operação</span>
+              <svg
+                class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
+                :class="[(selected === 'Operação') ? 'menu-item-arrow-active' : 'menu-item-arrow-inactive', sidebarToggle ? 'lg:hidden' : '' ]"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              ><path d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <!-- Dropdown Menu Start -->
+            
+            {{-- ENCOSTES --}}
+            <div class="overflow-hidden transform translate" :class="(selected === 'Operação') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('dockings.index') }}" class="menu-dropdown-item group {{ request()->routeIs('dockings.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                    Encostes
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {{-- ENCOSTES --}}
+            <div class="overflow-hidden transform translate" :class="(selected === 'Operação') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('stops.index') }}" class="menu-dropdown-item group {{ request()->routeIs('stops.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                    Parada de operação
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+
+            <!-- Dropdown Menu End -->
+          </li>
+          <!-- Menu Item Operação -->
+
         </ul>
       </div>
 
