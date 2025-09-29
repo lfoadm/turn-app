@@ -52,6 +52,9 @@
 
                             <!-- Table Header -->
                             <div class="grid grid-cols-12 border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-600">
+                                <div class="col-span-1 flex items-center justify-center px-4 py-3">
+                                    <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Código</p>
+                                </div>
                                 <div class="col-span-1 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-700 cursor-pointer"
                                     @click="sortBy('firstname')">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">Nome</p>
@@ -106,7 +109,7 @@
                                         </svg>
                                     </span>
                                 </div>
-                                <div class="col-span-4 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-700 cursor-pointer"
+                                <div class="col-span-3 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-700 cursor-pointer"
                                     @click="sortBy('email')">
                                     <p class="text-theme-xs font-medium text-gray-700 dark:text-gray-400">E-mail</p>
                                     <span class="flex flex-col gap-0.5">
@@ -136,6 +139,10 @@
                             <template x-for="person in paginatedData" :key="person.id">
                                 <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
                                     
+                                    <div class="col-span-1 flex items-center justify-center px-4 py-3 gap-2">
+                                        <span class="text-center justify-center text-theme-xs block font-xs text-gray-800 dark:text-white/90" x-text="person.id"></span>
+                                    </div>
+
                                     <div class="col-span-1 flex items-center px-4 py-3">
                                         <span class="text-center text-theme-xs block font-xs text-gray-800 dark:text-white/90" x-text="person.firstname"></span>
                                     </div>
@@ -148,7 +155,7 @@
                                         <span x-text="person.phone" class="text-theme-xs block font-xs text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-4 flex items-center px-4 py-3">
+                                    <div class="col-span-3 flex items-center px-4 py-3">
                                         <span x-text="person.email" class="text-theme-xs block font-xs text-gray-800 dark:text-white/90"></span>
                                     </div>
 
@@ -247,8 +254,6 @@
                     return this.data.filter(person =>
                         person.firstname.toLowerCase().includes(searchLower) ||
                         person.lastname.toLowerCase().includes(searchLower) ||
-                        person.phone.toLowerCase().includes(searchLower) ||
-                        person.role.toLowerCase().includes(searchLower) ||
                         person.email.toLowerCase().includes(searchLower)
 
                     ).sort((a, b) => {

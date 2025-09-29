@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="mx-auto max-w-[1440px] p-4 md:p-6">
         <!-- Breadcrumb / Título -->
-        <div x-data="{ pageName: `Grupo de usuários` }" class="px-3 py-2">
+        <div x-data="{ pageName: `Permissões` }" class="px-3 py-2">
             @include('layouts.partials.base.breadcrumb')
         </div>
 
@@ -9,15 +9,16 @@
         <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
             <!-- Cabeçalho com título e botão Novo -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between my-4 px-4" x-data="{
-                buttonText: '+ Grupo de usuários',
-                buttonRoute: '{{ route('roles.create') }}',
+                buttonText: '+ Permissão',
+                buttonRoute: '{{ route('permissions.create') }}',
             }">
                 <div class="flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-cyan-700 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                     </svg>
+
                     <h3 class="text-base font-medium text-gray-800 dark:text-white/90 mb-2 sm:mb-0">
-                        Grupos de usuários
+                        Permissões de usuários
                     </h3>
                 </div>
                 <x-button></x-button>
@@ -97,21 +98,22 @@
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.name"></span>
                                     </div>
                                     <div class="col-span-2 flex justify-center items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
-                                        <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.users_count"></span>
+                                        <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90" x-text="person.roles_count"></span>
                                     </div>
                                     <div class="col-span-3 flex items-center justify-center px-4 py-3 gap-2">
+
                                         <!-- Botão Ver -->
                                         <a
-                                            :href="`{{ route('roles.show', ':id') }}`.replace(':id', person.id)"
+                                            :href="`{{ route('permissions.show', ':id') }}`.replace(':id', person.id)"
                                             class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                             </svg>
-
                                         </a>
+
                                         <!-- Botão Editar -->
                                         <a 
-                                            :href="`{{ route('roles.edit', ':id') }}`.replace(':id', person.id)"
+                                            :href="`{{ route('permissions.edit', ':id') }}`.replace(':id', person.id)"
                                             class="px-3 py-1 text-sm font-medium text-cyan-600 hover:text-cyan-900 dark:text-gray-300 dark:hover:text-cyan-300">
                                             <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0911 3.53206C16.2124 2.65338 14.7878 2.65338 13.9091 3.53206L5.6074 11.8337C5.29899 12.1421 5.08687 12.5335 4.99684 12.9603L4.26177 16.445C4.20943 16.6931 4.286 16.9508 4.46529 17.1301C4.64458 17.3094 4.90232 17.3859 5.15042 17.3336L8.63507 16.5985C9.06184 16.5085 9.45324 16.2964 9.76165 15.988L18.0633 7.68631C18.942 6.80763 18.942 5.38301 18.0633 4.50433L17.0911 3.53206ZM14.9697 4.59272C15.2626 4.29982 15.7375 4.29982 16.0304 4.59272L17.0027 5.56499C17.2956 5.85788 17.2956 6.33276 17.0027 6.62565L16.1043 7.52402L14.0714 5.49109L14.9697 4.59272ZM13.0107 6.55175L6.66806 12.8944C6.56526 12.9972 6.49455 13.1277 6.46454 13.2699L5.96704 15.6283L8.32547 15.1308C8.46772 15.1008 8.59819 15.0301 8.70099 14.9273L15.0436 8.58468L13.0107 6.55175Z" fill=""></path>
@@ -183,13 +185,13 @@
                 sortDirection: "asc",
                 currentPage: 1,
                 perPage: 9, // default inicial igual ao select
-                data: @json($rolesJson),
+                data: @json($permissionsJson),
 
                 get filteredData() {
                     const searchLower = this.search.toLowerCase();
                     return this.data.filter(person =>
                         person.name.toLowerCase().includes(searchLower) ||
-                        person.users_count.toLowerCase().includes(searchLower)
+                        person.roles_count.toLowerCase().includes(searchLower)
                     ).sort((a, b) => {
                         let modifier = this.sortDirection === "asc" ? 1 : -1;
                         if (a[this.sortColumn] < b[this.sortColumn]) return -1 * modifier;

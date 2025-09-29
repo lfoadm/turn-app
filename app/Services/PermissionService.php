@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\ACL\Permission;
+use App\Models\ACL\Role;
 use Illuminate\Support\Str;
 
 class PermissionService
@@ -57,4 +58,35 @@ class PermissionService
             'destroy' => 'Excluir',
         ];
     }
+
+
+    /**
+     * Retorna as roles agrupadas pelo "model_type".
+     *
+     * @return array
+     */
+    public function getRolesGroupedByModel(): array
+    {
+        // Busca todas as roles
+        $roles = Role::with('permissions')->get();
+
+        // Agrupa por model (caso use guard_name/model_type ou convenção de nomes)
+        $grouped = $roles->groupBy(function ($role) {
+            // Se sua Role tiver uma coluna "model" no banco, pode usar direto:
+            // return $role->model;
+
+            // Caso não tenha, vamos agrupar pelo prefixo do nome:
+            // Exemplo: admin.wagon, editor.wagon -> agrupado em "wagon"
+            return Str::before($role->name, '.');
+        });
+
+        // Monta um array simples para passar à view
+        return $grouped->map(function ($roles, $model) {
+            return [
+                'model' => $model,
+                'roles' => $roles,
+            ];
+        })->toArray();
+    }
+    
 }

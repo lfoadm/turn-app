@@ -74,6 +74,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
         // ACL
         Route::prefix('acl')->group(function () {
+
+            // GRUPOS / CARGOS
             Route::get('roles', [RoleController::class, 'index'])->name('roles.index')->middleware('can:role.index');
             Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create')->middleware('can:role.create');
             Route::post('roles', [RoleController::class, 'store'])->name('roles.store')->middleware('can:role.store');
@@ -83,8 +85,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy')->middleware('can:role.destroy');
             Route::put('roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
     
-        // PERMISSÕES
-            Route::resource('permissions', PermissionController::class)->names('permissions');
+            // PERMISSÕES
+            Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index')->middleware('can:permission.index');
+            Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create')->middleware('can:permission.create');
+            Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store')->middleware('can:permission.store');
+            Route::get('permissions/{permission}', [PermissionController::class, 'show'])->name('permissions.show')->middleware('can:permission.show');
+            Route::get('permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit')->middleware('can:permission.edit');
+            Route::put('permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update')->middleware('can:permission.update');
+            Route::delete('permissions/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy')->middleware('can:permission.destroy');
+            
             
         });
     });

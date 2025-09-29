@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
         ]);
 
-        Harvest::factory(199)->create();
+        User::factory(199)->create();
 
     }
 }

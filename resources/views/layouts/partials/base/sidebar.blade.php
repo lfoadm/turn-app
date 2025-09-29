@@ -262,6 +262,18 @@
             </div>
             @endcan
 
+            @can('permission.index')
+            <div class="overflow-hidden transform translate" :class="(selected === 'Usuários') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('permissions.index') }}" class="menu-dropdown-item group {{ request()->routeIs('permissions.*') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }}">
+                    Permissõess
+                  </a>
+                </li>
+              </ul>
+            </div>
+            @endcan
+
             <!-- Dropdown Menu End -->
           </li>
           <!-- Menu Item Cadastros -->

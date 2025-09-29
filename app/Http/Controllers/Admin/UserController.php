@@ -20,7 +20,7 @@ class UserController extends Controller
 
         // Transforma em array pronto para o front
         $usersJson = $users->map(fn($h) => [
-            'id'        => $h->id,
+            'id'            => $h->id,
             'firstname'     => $h->firstname,
             'lastname'      => $h->lastname,
             'phone'         => $h->phone,
