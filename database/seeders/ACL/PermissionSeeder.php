@@ -3,6 +3,7 @@
 namespace Database\Seeders\ACL;
 
 use App\Models\ACL\Permission;
+use App\Models\ACL\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -92,5 +93,16 @@ class PermissionSeeder extends Seeder
                 'name' => $permission,
             ]);
         }
+
+        // Busca a role SUPER (id ou pelo name)
+        $super = Role::where('name', 'SUPER')->first();
+
+        if ($super) {
+            
+            // OU: vincular todas as permissões de role.*
+            $rolePermissions = Permission::where('name', 'like', 'role.%')->pluck('id');
+            $super->permissions()->attach($rolePermissions);
+        }
+        
     }
 }
