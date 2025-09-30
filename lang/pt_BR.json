@@ -207,7 +207,18 @@
   "Purge?": "Expurga?",
   "Back": "Voltar",
   "Sign up": "Registrar",
-  "Sign in": "Entrar"
-
+  "Sign in": "Entrar",
+  "Port": "Terminal portuário",
+  "Hour Docking": "Hora do encoste",
+  "Qty Wagons": "Qtde. vagões",
+  "Status Wagon": "Situação dos vagões",
+  "Wagons Load": "Vagões carregados",
+  "Wagons Open": "Vagões abertos",
+  "Wagons Recused": "Vagões recusados",
+  "Hour Start": "Hora início",
+  "Hour End": "Hora fim",
+  "Hour Departure": "Hora partida",
+  "Own": "Próprio (t)",
+  "Third Party": "Terceiro (t)"
 
 }

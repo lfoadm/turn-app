@@ -13,7 +13,7 @@
                 buttonRoute: '{{ route('dockings.create') }}',
             }">
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90 mb-2 sm:mb-0">
-                    🚆 Encostes ferroviário
+                    🚆 Lista de encostes ferroviário
                 </h3>
                 <x-button></x-button>
             </div>
@@ -45,11 +45,11 @@
                     </div>
 
                     <!-- Table -->
-                    <div class="max-w-full overflow-x-auto">
-                        <div class="min-w-[600px]">
+                    {{-- <div class="max-w-full overflow-x-auto">
+                        <div class="min-w-[720px]">
 
                             <!-- Table Header -->
-                            <div class="grid grid-cols-12 border-t bg-gray-100 dark:bg-gray-600 border-gray-200 dark:border-gray-800">
+                            <div class="grid grid-cols-12 border-t border-gray-200 bg-gray-50 text-xs font-semibold text-gray-700 dark:border-gray-700 dark:bg-slate-800 dark:text-slate-200">
 
                                 <div class="col-span-1 flex justify-between items-center border-r border-gray-200 px-4 py-3 dark:border-gray-800 cursor-pointer"
                                     @click="sortBy('numero_encoste')">
@@ -122,47 +122,46 @@
 
                             <!-- Table Body -->
                             <template x-for="person in paginatedData" :key="person.id">
-                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <div class="grid grid-cols-12 border-t border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-2xs">
                                     <div
-                                        class="col-span-1 flex items-center border-r border-gray-100 px-4 py-3 dark:border-gray-800">
+                                        class="col-span-1 flex items-center border-r border-gray-100 px-2 py-2 dark:border-gray-800">
                                         <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"
                                             x-text="person.numero_encoste"></span>
                                     </div>
-                                    <div class="col-span-2 flex items-center px-4 py-3">
-                                        <span x-text="person.hora_encoste"
-                                            class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
+                                    <div class="col-span-2 flex items-center px-2 py-2">
+                                        <span x-text="person.hora_encoste" class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
-                                    <div class="col-span-1 flex items-center px-4 py-3">
+                                    <div class="col-span-1 flex items-center px-2 py-2">
                                         <span x-text="person.qtd_vagoes_total"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-1 flex items-center px-4 py-3">
+                                    <div class="col-span-1 flex items-center px-2 py-2">
                                         <span x-text="person.qtd_vagoes_carregados"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-1 flex items-center px-4 py-3">
+                                    <div class="col-span-1 flex items-center px-2 py-2">
                                         <span x-text="person.hora_inicio_carga"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-1 flex items-center px-4 py-3">
+                                    <div class="col-span-1 flex items-center px-2 py-2">
                                         <span x-text="person.hora_fim_carga"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-1 flex items-center px-4 py-3">
+                                    <div class="col-span-1 flex items-center px-2 py-2">
                                         <span x-text="person.peso_proprio"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-2 flex items-center px-4 py-3">
-                                        <span x-text="person.user_id"
+                                    <div class="col-span-2 flex items-center px-2 py-2">
+                                        <span x-text="person.user_firstname + ' ' + person.user_lastname"
                                             class="text-theme-sm block font-medium text-gray-800 dark:text-white/90"></span>
                                     </div>
 
-                                    <div class="col-span-2 flex items-center justify-center px-4 py-3 gap-2">
+                                    <div class="col-span-2 flex items-center justify-center px-2 py-2 gap-2">
                                         <!-- Botão Editar -->
                                         <a 
                                             :href="`{{ route('dockings.edit', ':id') }}`.replace(':id', person.id)"
@@ -175,6 +174,103 @@
                                 </div>
                             </template>
 
+                        </div>
+                    </div> --}}
+
+                    <!-- Table -->
+                    <div class="max-w-full overflow-x-auto">
+                        <div class="min-w-[720px]">
+                            <!-- Table Header -->
+                            <div
+                                class="grid grid-cols-12 border-t border-gray-200 bg-gray-50 text-xs font-semibold text-gray-700 dark:border-gray-700 dark:bg-slate-800 dark:text-slate-200">
+                                
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2 cursor-pointer text-center"
+                                    @click="sortBy('numero_encoste')">
+                                    <span>Nº encoste</span>
+                                </div>
+
+                                <div class="col-span-2 flex items-center justify-center px-2 py-2 cursor-pointer"
+                                    @click="sortBy('hora_encoste')">
+                                    <span>Data/Hora</span>
+                                </div>
+
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2 text-center">
+                                    <span>Total vagões</span>
+                                </div>
+
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2 text-center">
+                                    <span>Qtde. carregados</span>
+                                </div>
+
+                                <div class="col-span-2 flex items-center justify-center px-2 py-2 text-center">
+                                    <span>Hora início</span>
+                                </div>
+
+                                <div class="col-span-2 flex items-center justify-center px-2 py-2">
+                                    <span>Hora final</span>
+                                </div>
+
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2">
+                                    <span>Volume total</span>
+                                </div>
+
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2">
+                                    <span>Usuário</span>
+                                </div>
+
+                                <div class="col-span-1 flex items-center justify-center px-2 py-2">
+                                    <span>Ações</span>
+                                </div>
+                            </div>
+
+                            <!-- Table Body -->
+                            <template x-for="person in paginatedData" :key="person.id">
+                                <div
+                                    :class="[
+                                        'grid grid-cols-12 border-t border-gray-100 text-xs hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-cyan-700',
+                                        !person.hora_fim_carga ? 'bg-red-200 text-red-800 hover:bg-red-300 dark:bg-red-800 dark:text-red-200 dark:hover:bg-red-900' : '' ]"
+                                    >
+                                    
+                                    <div class="col-span-1 flex items-center px-2 py-2 justify-center">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.numero_encoste"></span>
+                                    </div>
+
+                                    <div class="col-span-2 flex items-center px-2 py-2 justify-center">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.hora_encoste"></span>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center justify-center px-2 py-2">
+                                        <span class="text-gray-800 dark:text-slate-200 text-center" x-text="person.qtd_vagoes_total"></span>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center justify-center px-2 py-2 text-center">
+                                        <span class="text-gray-800 dark:text-slate-200 text-center" x-text="person.qtd_vagoes_carregados"></span>
+                                    </div>
+
+                                    <div class="col-span-2 flex items-center justify-center px-2 py-2">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.hora_inicio_carga"></span>
+                                    </div>
+
+                                    <div class="col-span-2 flex items-center justify-center px-2 py-2">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.hora_fim_carga"></span>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center justify-center px-2 py-2">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.peso_total"></span>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center px-2 py-2">
+                                        <span class="truncate text-gray-800 dark:text-slate-200 text-center" x-text="person.user_firstname + ' ' + person.user_lastname"></span>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center justify-center gap-2 px-2 py-2">
+                                        <a :href="`{{ route('dockings.edit', ':id') }}`.replace(':id', person.id)"
+                                            class="text-cyan-600 hover:text-cyan-900 dark:text-slate-300 dark:hover:text-cyan-300 text-xs font-medium">
+                                            Editar
+                                        </a>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
 
