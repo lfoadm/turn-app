@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $password = "123";
-        User::factory()->create([
+        User::create([
             'firstname' => 'Leandro',
             'lastname' => 'Oliveira',
             'phone' => '34999749344',
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt($password),
         ]);
 
-        User::factory()->create([
+        User::create([
             'firstname' => 'Uelinton',
             'lastname' => 'Martins',
             'phone' => '34999749345',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt($password),
         ]);
 
-        User::factory()->create([
+        User::create([
             'firstname' => 'PIT',
             'lastname' => 'Terminal Iturama',
             'phone' => '34999749346',

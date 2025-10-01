@@ -13,22 +13,22 @@ class PortSeeder extends Seeder
      */
     public function run(): void
     {
-        Port::factory()->create([
+        Port::create([
             'title' => 'CLI',
             'description' => 'ANTIGO TERMINAL DA RUMO.',
         ]);
         
-        Port::factory()->create([
+        Port::create([
             'title' => 'TAC',
             'description' => 'TERMINAL DA COPERSUCAR.',
         ]);
         
-        Port::factory()->create([
+        Port::create([
             'title' => 'TEAG',
             'description' => 'TERMINAL DO GUARUJÁ.',
         ]);
         
-        Port::factory()->create([
+        Port::create([
             'title' => 'TEC',
             'description' => 'TERMINAL DA COFCO.',
         ]);

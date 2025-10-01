@@ -13,22 +13,22 @@ class HarvestSeeder extends Seeder
      */
     public function run(): void
     {
-        Harvest::factory()->create([
+        Harvest::create([
             'title' => '2022/23',
             'is_active' => 0,
         ]);
 
-        Harvest::factory()->create([
+        Harvest::create([
             'title' => '2023/24',
             'is_active' => 0,
         ]);
 
-        Harvest::factory()->create([
+        Harvest::create([
             'title' => '2024/25',
             'is_active' => 0,
         ]);
 
-        Harvest::factory()->create([
+        Harvest::create([
             'title' => '2025/26',
             'is_active' => 1,
         ]);
