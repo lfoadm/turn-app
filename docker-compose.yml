@@ -20,10 +20,10 @@ services:
     container_name: turn-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: turnapp
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: turnuser
-      MYSQL_PASSWORD: turnpass
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
     networks:
